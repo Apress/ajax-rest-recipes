@@ -1,0 +1,1 @@
+throw new Error( "factory.js has been deleted, please use communications.js");

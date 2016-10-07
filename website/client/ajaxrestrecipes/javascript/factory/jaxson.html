@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>Sample Page</title>
+<script language="JavaScript" src="/scripts/jaxson/communications.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+function AsyncUpdateEvent( xmlhttp) {
+    document.getElementById( 'httpcode').innerHTML = xmlhttp.status;
+    document.getElementById( 'httpstatus').innerHTML = xmlhttp.statusText;
+    document.getElementById( 'result').innerHTML = xmlhttp.responseText;
+    document.getElementById( 'xmlresult').innerHTML = xmlhttp.responseXML;
+}
+
+function AsyncUpdateEvent2( xmlhttp) {
+    document.getElementById( 'httpcode2').innerHTML = xmlhttp.status;
+    document.getElementById( 'httpstatus2').innerHTML = xmlhttp.statusText;
+    document.getElementById( 'result2').innerHTML = xmlhttp.responseText;
+    document.getElementById( 'xmlresult2').innerHTML = xmlhttp.responseXML;
+}
+
+var asynchronous = new Asynchronous( { complete: AsyncUpdateEvent} );
+var asynchronous2 = new Asynchronous( {complete: AsyncUpdateEvent2 });
+
+</script>
+</head>
+<body>
+This example illustrates how to use the <a href="/scripts/jaxson/communications.js">Asynchronous</a> type
+to make asynchronous XMLHttpRequest requests. The two buttons can be pressed and two
+XMLHttpRequest request's are made. To illustrate the demo, click the button on the left first,
+and then the one on the right, immediately after clicking the button on the left. The button
+on the left calls the hanging page, and notice how the browser is not locked and can still
+be used.<br />&nbsp;<br />
+
+  <button onclick="asynchronous.get('/ajaxpatterns/asynchronous/serverhang')">Get the hanging content (10s)</button>
+  <button onclick="asynchronous2.get('/ajaxpatterns/asynchronous/books.xml')">Get immediate content</button>
+<p><table border="1">
+    <tr><td>Document</td>
+        <td><span id="httpcode">No Http Code</span></td>
+        <td><span id="httpstatus">No Http Status</span></td>
+        <td><span id="result">No Result</span></td>
+        <td><span id="xmlresult">No XML Result</span></td></tr>
+    <tr><td>Document</td>
+        <td><span id="httpcode2">No Http Code</span></td>
+        <td><span id="httpstatus2">No Http Status</span></td>
+        <td><span id="result2">No Result</span></td>
+        <td><span id="xmlresult2">No XML Result</span></td></tr>
+</table></p>
+</body>
+</html>
+

@@ -1,0 +1,166 @@
+<html>
+  <head>
+    <title>Understanding All of the Ways To Create a Function</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+    <script language="javascript" src="/scripts/jaxson/jsUnitCore.js"></script>
+  </head>
+  <body>
+<script language="javascript">
+if (window.ActiveXObject) {
+    InstantiateXMLHttpRequest = function() {
+        return new ActiveXObject("Microsoft.XMLHTTP");
+    }
+}
+else if (window.XMLHttpRequest) {
+    InstantiateXMLHttpRequest = function() {
+        return new XMLHttpRequest();
+    }
+}
+else {
+    throw new Error("Could not instantiate XMLHttpRequest");
+}
+
+function InstantiateXMLHttpRequest() {
+    if (window.ActiveXObject) {
+        return new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    else if (window.XMLHttpRequest) {
+        return new XMLHttpRequest();
+    }
+    else {
+        throw new Error("Could not instantiate XMLHttpRequest");
+    }
+}
+
+var variable = 0;
+function DoOnceOnly() {
+    variable = 10;
+    DoOnceOnly = function() { }
+}
+
+function DoSomethingMultipleTimes() {
+    DoOnceOnly();
+    // Do my logic
+}
+
+function GetComma() {
+    GetComma = function() { }
+    return ",";
+}
+
+function DoStateMultipleTimes() {
+    if( typeof( DoStateMultipleTimes.value) == "undefined") {
+        DoSomethingMultipleTimes = function() {
+            DoSomethingMultipleTimes = function() { }
+            return 30;
+        }
+        return 10;
+    }
+    else if( DoStateMultipleTimes.value == 40) {
+        DoSomethingMultipleTimes.value = 90;
+        return 30;
+    }
+    else {
+        DoSomethingMultipleTimes = function() { }
+    }
+}
+
+var buffer = "[something,command,another]";
+
+</script>
+<script language="javascript">
+// Setup the output generator
+
+// *******************************************************
+function InstantiateIEXMLHttpRequest() {
+    return new ActiveXObject("Microsoft.XMLHTTP");
+}
+
+function InstantiateOthersXMLHttpRequest() {
+    return new XMLHttpRequest();
+}
+
+function FactoryXMLHttpRequest() {
+    if (window.ActiveXObject) {
+        return InstantiateIEXMLHttpRequest;
+    }
+    else if (window.XMLHttpRequest) {
+        return InstantiateOthersXMLHttpRequest;
+    }
+    throw new Error("Could not instantiate XMLHttpRequest");
+}
+
+function FunctionFunctionProperties(cmpval) {
+    assertEquals(cmpval, FunctionFunctionProperties.value);
+}
+
+var VariableFunctionProperties = function(cmpval) {
+    assertEquals(cmpval, VariableFunctionProperties.value);
+}
+
+var startIndex = VariableFunctionProperties.toString().indexOf("{");
+var endIndex = VariableFunctionProperties.toString().lastIndexOf("}");
+var buffer = VariableFunctionProperties.toString().slice(startIndex + 1, endIndex);
+var InstantiatedFunctionProperties = new Function("cmpval", buffer);
+
+
+function GetFunction() {
+    return function(cmpvalue) {
+        assertEquals(cmpval, unknownfunctioninstance.value);
+    }
+}
+
+function GetFunctionFixed() {
+    var inst = function(cmpval) {
+        assertEquals(cmpval, inst.value);
+    }
+    return inst;
+}
+
+// *******************************************************
+
+var testsToRun = {
+    factory_function : function() {
+        var InstantiateXMLHttpRequest = FactoryXMLHttpRequest();
+        var xmlhttp = InstantiateXMLHttpRequest();
+        info("factory_function", typeof(xmlhttp));
+        info("factory_function", InstantiateXMLHttpRequest.toString());
+        assertNotNull(xmlhttp);
+    },
+    function_initialized_parsed : function() {
+        var xmlhttp = InstantiateXMLHttpRequest();
+        info("factory_function", typeof(xmlhttp));
+        info("factory_function", InstantiateXMLHttpRequest.toString());
+        assertNotNull(xmlhttp);
+    },
+    function_with_properties : function() {
+        info("function_with_properties", "startindex (" + startIndex + ") endindex (" + endIndex + ")");
+        info("function_with_properties", VariableFunctionProperties.toString());
+        info("function_with_properties", buffer);
+        VariableFunctionProperties.value = 10;
+        VariableFunctionProperties(10);
+        FunctionFunctionProperties.value = 10;
+        FunctionFunctionProperties(10);
+        InstantiatedFunctionProperties.value = 10;
+        InstantiatedFunctionProperties(10);
+    },
+    function_with_instance_properties : function() {
+        var func1 = GetFunctionFixed();
+        var func2 = GetFunctionFixed();
+        
+        func1.value = 10;
+        func1(10);
+        func2.value = 20;
+        func2(20);
+        // This call illustrates that func1, and func2 are two different instances
+        func1(10);
+    }
+};
+</script>
+    <div id="unittestoutput"></div>
+    <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+  </body>
+</html>
+
+

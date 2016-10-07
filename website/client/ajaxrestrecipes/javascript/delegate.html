@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <title>Implementing Delegates</title>
+        <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+        <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+        <script language="javascript" src="/scripts/jaxson/jsUnitCore.js"></script>
+    </head>
+    <body>
+<script language="javascript">
+// *******************************************************
+
+
+function DefinedClass() {
+}
+
+function Delegated(param) {
+    var func;
+    
+    func = function(param) {
+        info("Delegate1", "called");
+    }
+    func();
+    func = function(param) {
+        info("Delegate2", "called");
+    }
+    func();
+}
+// *******************************************************
+// Expanded code
+var generated = function () {
+    var func1 = (function () {
+        var func1 = (function () {});
+        var func2 = (function (param) {
+            info("delegate1", "you said (" + param + ") original (" + this.value + ")");
+        });
+        func1.apply(this, arguments);
+        func2.apply(this, arguments);
+    });
+    var func2 = (function (param) {
+        info("delegate2", "again you said (" + param + ") original (" + this.value + ")");
+    });
+    func1.apply(this, arguments);
+    func2.apply(this, arguments);
+}
+
+// *******************************************************
+var testsToRun = {
+    // Not talked about in the book, but added for reference purposes
+    reference_delegate_example : function() {
+        var cls = new DefinedClass();
+        cls.value = "original";
+        OpsReference.delegate(cls, "example", function(param) {
+                                  info("delegate1", "you said (" + param + ") original (" + this.value + ")");
+                              });
+        cls.example("nothing");
+        cls.value = "modified";
+        OpsReference.delegate(cls, "example", function(param) {
+                                  info("delegate2", "again you said (" + param + ") original (" + this.value + ")");
+                              });
+        cls.example("hello");
+    },
+    example_byvalue_delegate : function() {
+        var cls = new DefinedClass();
+        cls.value = "original";
+        OpsValue.delegate(cls, "example", function(param) {
+                         info("delegate1", "you said (" + param + ") original (" + this.value + ")");
+                     });
+        info("example_byvalue_delegate", cls.example.toString());
+        cls.example("nothing");
+        cls.value = "modified";
+        OpsValue.delegate(cls, "example", function(param) {
+                         info("delegate2", "again you said (" + param + ") original (" + this.value + ")");
+                     });
+        info("example_byvalue_delegate", cls.example.toString());
+        cls.example("hello");
+    }
+};
+</script>
+        <div id="unittestoutput"></div>
+        <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+    </body>
+</html>
+
+

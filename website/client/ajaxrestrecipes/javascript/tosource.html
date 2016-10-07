@@ -1,0 +1,142 @@
+<html>
+  <head>
+    <title>Convention over Configuration</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+    <script language="javascript" src="/scripts/jaxson/jsUnitCore.js"></script>
+    <script language="javascript" src="/scripts/toliteral.js"></script>
+    <script language="javascript" src="/scripts/json.js"></script>
+  </head>
+  <body>
+<script language="javascript">
+// *******************************************************
+function StaticClass() {
+    this.value = 1;
+    this.staticClassLocalMethod = function() {
+        info( "StaticClass.staticClassLocalMethod", "called me");
+    }
+}
+
+StaticClass.prototype.staticClassPrototypeMethod = function() {
+    info("StaticClass.prototype.staticClassPrototypeMethod", "called me");
+}
+
+function DefinedClass() {
+    this.localvalue = 10;
+    this.localmethod = function(param) {
+        info("DefinedClass.localmethod", "called me");
+    }
+}
+
+DefinedClass.prototype.prototypemethod = function() {
+    info("DefinedClass.prototype.prototypemethod", "called me");
+}
+
+DefinedClass.prototype.prototypevalue = new StaticClass();
+
+// *******************************************************
+
+var testsToRun = {
+    mozilla_tosource : function() {
+        var cls = new DefinedClass();
+        cls.prototypemethod.value = 100;
+        info("mozilla_tosource", cls.toSource());
+    },
+    get_constructor : function() {
+        var cls = new DefinedClass();
+        info( "get_constructor", cls.constructor.toString());
+    },
+    literal_tosource : function() {
+        var cls = new DefinedClass();
+        cls.prototypemethod.value = 100;
+        info("mozilla_tosource", ToLiteral(cls));
+    },
+    json_tosource : function() {
+        var cls = new DefinedClass();
+        cls.prototypemethod.value = 100;
+        info("mozilla_tosource", JSON.stringify(cls));
+    },
+    jaxson_tosource : function() {
+        var cls = new DefinedClass();
+        cls.prototypemethod.value = 100;
+        info("jaxson_tosource", Serializer.toSource(cls));
+    },
+    jaxson_tosource_instance : function() {
+        var cls = new DefinedClass();
+        cls.prototypemethod.value = 100;
+        info("jaxson_tosource_instance", Serializer.toSourceInstance(cls));
+    },
+    jaxson_tosource_state : function() {
+        var cls = new DefinedClass();
+        cls.prototypemethod.value = 100;
+        info("jaxson_tosource_state", Serializer.toSourceState(cls));
+    },
+    jaxson_tosource_json : function() {
+        var cls = new DefinedClass();
+        cls.prototypemethod.value = 100;
+        info("jaxson_tosource_json", Serializer.toSourceJSON(cls));
+    },
+    jaxson_tosource_oo : function() {
+        var cls = new DefinedClass();
+        cls.prototypemethod.funcvalue = 100;
+        
+        var toexec = Serializer.toSourceVariable( cls, "cls2", false);
+        info("jaxson_tosource_variable{toexec}", toexec);
+        eval( toexec);
+        cls2.localmethod();
+        cls2.prototypemethod();
+        cls2.prototypevalue.staticClassPrototypeMethod();
+        assertEquals(1, cls2.prototypevalue.value);
+        assertEquals(10, cls2.localvalue);
+        assertEquals(100, cls2.prototypemethod.funcvalue);
+    },
+    jaxson_tosource_oo : function() {
+        var cls = new DefinedClass();
+        cls.localmethod.value = 100;
+        cls.localvalue = 1000;
+        info("jaxson_tosource_oo|before", Serializer.toSourceVariable( cls, "cls2", false));
+        var toexec = Serializer.toSourceOO(cls, "cls2");
+        info("jaxson_tosource_oo{toexec}", toexec);
+        eval( toexec);
+        info( "jaxson_tosource_oo{cls2}", Serializer.toSourceInstance( cls2));
+        cls2.localmethod();
+        cls2.prototypemethod();
+        cls2.prototypevalue.staticClassPrototypeMethod();
+        assertEquals(1, cls2.prototypevalue.value);
+        assertEquals(1000, cls2.localvalue);
+        assertEquals(100, cls2.localmethod.value);
+    },
+    jaxson_isglobal : function() {
+        info( "jaxson_isglobal", typeof( cls2));
+    },
+    test_object_equality : function() {
+        var cls1 = new Object();
+        var cls2 = new Object();
+        var cls3 = cls1;
+        if( cls1 == cls2) {
+            info( "test_object_equality{cls1 == cls2}", "should not be generated");
+        }
+        else {
+            info( "test_object_equality{cls1 != cls2}", "should be generated");
+        }
+        if( cls1 == cls1) {
+            info( "test_object_equality{cls1 == cls1}", "should be generated");
+        }
+        else {
+            info( "test_object_equality{cls1 != cls1}", "should not be generated");
+        }
+        if( cls1 == cls3) {
+            info( "test_object_equality{cls1 == cls3}", "should be generated");
+        }
+        else {
+            info( "test_object_equality{cls1 != cls3}", "should not be generated");
+        }
+    }
+};
+</script>
+    <div id="unittestoutput"></div>
+    <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+  </body>
+</html>
+
+

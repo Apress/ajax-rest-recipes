@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <title>Convention over Configuration</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+    <script language="javascript" src="/scripts/jaxson/jsUnitCore.js"></script>
+  </head>
+  <body>
+<script language="javascript">
+// *******************************************************
+function AddTwoNumbers(num1, num2) {
+    return num1 + num2;
+}
+
+// *******************************************************
+
+var testsToRun = {
+    plain_vanilla : function() {
+        assertEquals(4, AddTwoNumbers(2, 2));
+    },
+    failed_test : function() {
+        testManager.failed();
+    },
+    exception_failed : function() {
+        obj.notexistant();
+    }
+};
+</script>
+    <div id="unittestoutput"></div>
+    <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+  </body>
+</html>
+
+

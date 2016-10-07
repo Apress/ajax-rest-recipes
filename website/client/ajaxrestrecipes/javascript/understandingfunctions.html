@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <title>Understanding All of the Ways To Create a Function</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+    <script language="javascript" src="/scripts/jaxson/jsUnitCore.js"></script>
+  </head>
+  <body>
+<script language="javascript">
+// Setup the output generator
+
+// *******************************************************
+function AddTwoNumbers(num1, num2) {
+    return num1 + num2;
+}
+
+var anonymousFunction = function(num1, num2) {
+    return num1 + num2;
+}
+
+var anonymousAllocated = new Function("num1", "num2",
+                                      "return num1 + num2;");
+
+var anonymousMultiline = new Function("num1", "num2",
+                                      "info( 'AnonymousMultiLine', 'hello world');" +
+                                      "info( 'AnonymousMultiLine', 'hello again'); \
+                                      return num1 + num2;");
+
+var assignPropertyMethod = function() {
+    assertEquals(10, assignPropertyMethod.value);
+    assertEquals(0, assignPropertyMethod.arguments.length);
+}
+
+var newAssignedMethod = assignPropertyMethod;
+
+// *******************************************************
+
+var testsToRun = {
+    classical_function : function() {
+        assertEquals(4, AddTwoNumbers(2, 2));
+        testManager.success();
+    },
+    classical_function_error : function() {
+        assertEquals(4, AddTwoNumbers(2, "2"));
+    },
+    anonymous_function : function() {
+        assertEquals(4, anonymousFunction(2, 2));
+        testManager.success();
+    },
+    anonymous_allocated : function() {
+        assertEquals(4, anonymousAllocated(2, 2));
+        testManager.success();
+    },
+    anonymous_multiline : function() {
+        assertEquals(4, anonymousMultiline(2, 2));
+        testManager.success();
+    },
+    anonymous_property : function() {
+        assignPropertyMethod.value = 10;
+        assignPropertyMethod();
+        newAssignedMethod();
+        testManager.success();
+    }
+};
+</script>
+    <div id="unittestoutput"></div>
+    <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+  </body>
+</html>
+
+

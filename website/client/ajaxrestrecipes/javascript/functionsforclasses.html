@@ -1,0 +1,104 @@
+<html>
+  <head>
+    <title>Defining Functions For Classes</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+    <script language="javascript" src="/scripts/jaxson/jsUnitCore.js"></script>
+  </head>
+  <body>
+<script language="javascript">
+// Setup the output generator
+
+// *******************************************************
+function Classical() {
+}
+function Classical_AddTwoNumbers(num1, num2) {
+    return num1 + num2;
+}
+Classical.prototype.addTwoNumbers = Classical_AddTwoNumbers;
+
+function Anonymous() { }
+Anonymous.prototype.addTwoNumbers = function( num1, num2) {
+    return num1 + num2;
+}
+
+function AssignedInstance() {
+    this.addTwoNumbers = Classical_AddTwoNumbers;
+}
+
+function AssignMethod( instance, method) {
+    instance.addTwoNumbers = method;
+}
+
+function FunctionProperties() {
+    
+}
+FunctionProperties.prototype.method = function() {
+    assertEquals( 20, FunctionProperties.prototype.method.value);
+}
+
+function AssignMethodAndProperty( instance) {
+    instance.method = function() {
+        assertEquals( 20, instance.method.value);
+    }
+}
+// *******************************************************
+
+var testsToRun = {
+    classical_type : function() {
+        var obj = new Classical();
+        assertEquals(4, obj.addTwoNumbers(2, 2));
+        testManager.success();
+    },
+    assigned_type : function() {
+        var obj = new Anonymous();
+        Anonymous.prototype.addTwoNumbers.value = 10;
+        obj.addTwoNumbers.value = 20;
+        assertEquals(4, obj.addTwoNumbers(2, 2));
+        testManager.success();
+    },
+    assigned_instance : function() {
+        var obj = new AssignedInstance();
+        assertEquals(4, obj.addTwoNumbers(2, 2));
+        testManager.success();
+    },
+    assigned_method : function() {
+        var obj = new Object();
+        AssignMethod( obj, Classical_AddTwoNumbers);
+        assertEquals(4, obj.addTwoNumbers(2, 2));
+        testManager.success();
+    },
+    function_properties : function() {
+        var obj = new FunctionProperties();
+        FunctionProperties.prototype.method.value = 10;
+        obj.method.value = 20;
+        obj.method();
+        var obj2 = new FunctionProperties();
+        obj2.method();
+        testManager.success();
+    },
+    function_assigned_properties : function() {
+        var obj = new Object();
+        AssignMethodAndProperty( obj);
+        obj.method.value = 20;
+        obj.method();
+        
+        var obj2 = new Object();
+        AssignMethodAndProperty( obj);
+        try {
+            obj.method();
+        }
+        catch( error) {
+            testManager.success();
+            return;
+        }
+        testManager.failed();
+    }
+};
+</script>
+    <div id="unittestoutput"></div>
+    <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+  </body>
+</html>
+
+

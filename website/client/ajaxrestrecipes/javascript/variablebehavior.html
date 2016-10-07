@@ -1,0 +1,236 @@
+<html>
+    <head>
+        <title>Variable Behavior</title>
+        <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+        <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+        <script language="javascript" src="/scripts/jaxson/jsUnitCore.js"></script>
+    </head>
+    <body>
+<script language="javascript">
+
+// *******************************************************
+function RecursionGlobal(counter) {
+    info("RecursionGlobal{localCounter}", typeof(localCounter));
+    localCounter = counter;
+    info("RecursionGlobal{localCounter}", localCounter);
+    if (localCounter < 3) {
+        RecursionGlobal(localCounter + 1);
+    }
+}
+
+function RecursionLocal(counter) {
+    info("RecursionLocal{localCounter}", typeof(localCounter));
+    var localCounter = counter;
+    info("RecursionLocal{localCounter}", localCounter);
+    if (localCounter < 3) {
+        RecursionLocal(localCounter + 1);
+    }
+}
+
+function RecursiveStackOldWay(arrayToProcess, processedArray) {
+    info("RecursiveStackOldWay", "---> Start");
+    info("RecursiveStackOldWay", "Recursive depth=" + (processedArray.length + 1));
+    processedArray.push(arrayToProcess.pop());
+    if (arrayToProcess.length > 0) {
+        RecursiveStackOldWay(arrayToProcess, processedArray);
+    }
+    info("RecursiveStackOldWay", "---> End");
+}
+
+function RecursiveStack(arrayToProcess, processedArray) {
+    info("RecursiveStack", "---> Start");
+    if( arguments.length == 1)
+    if (typeof(processedArray) == "undefined") {
+        info("RecursiveStack", "Initial");
+        processedArray = new Array();
+        RecursiveStack(arrayToProcess, processedArray);
+        info("RecursiveStack", "---> End");
+        return processedArray;
+    }
+    else {
+        info("RecursiveStack", "Recursive depth=" + (processedArray.length + 1));
+        processedArray.push(arrayToProcess.pop());
+        if (arrayToProcess.length > 0) {
+            RecursiveStack(arrayToProcess, processedArray);
+        }
+        info("RecursiveStack", "---> End");
+        return;
+    }
+}
+// *******************************************************
+
+function AlwaysLocalScope() {
+    info("AlwaysLocalScope{scopedVariable}", typeof(scopedVariable));
+    scopedVariable = "AlwaysLocalScope";
+    info("AlwaysLocalScope{scopedVariable}", "scopedVariable=" + scopedVariable + " type=" + typeof(scopedVariable));
+    var scopedVariable;
+}
+
+function NeverReachableAlwaysLocalScope(param) {
+    info("AlwaysLocalScope{scopedVariable}", typeof(scopedVariable));
+    scopedVariable = "NeverReachableAlwaysLocalScope";
+    info("AlwaysLocalScope{scopedVariable}", "scopedVariable=" + scopedVariable + " type=" + typeof(scopedVariable));
+    if (param == true) {
+        var scopedVariable;
+    }
+}
+
+function GlobalScope() {
+    info("GlobalScope{scopedVariable}", typeof(scopedVariable));
+    scopedVariable = "globalscope";
+    info("GlobalScope{scopedVariable}", "scopedVariable=" + scopedVariable + " type=" + typeof(scopedVariable));
+}
+
+function SomeFunction() {
+    
+}
+
+VariableSomeFunction = function() {
+    
+}
+
+function UnsetGlobal() {
+    delete scopedVariable;
+}
+
+function TestScope() {
+    info("TestScope{scopedVariable}", "scopedVariable=" + scopedVariable + " type=" + typeof(scopedVariable));
+}
+
+// *******************************************************
+
+function EvalAlwaysLocalScope() {
+    info("EvalAlwaysLocalScope{scopedVariable}", typeof(scopedVariable));
+    eval("scopedVariable = 'EvalAlwaysLocalScope'");
+    info("EvalAlwaysLocalScope{scopedVariable}", "scopedVariable=" + scopedVariable + " type=" + typeof(scopedVariable));
+    var scopedVariable;
+}
+
+function EvalEverythingAlwaysLocalScope() {
+    info("EvalEverythingAlwaysLocalScope{scopedVariable}", typeof(scopedVariable));
+    eval("scopedVariable = 'EvalEverythingAlwaysLocalScope'");
+    info("EvalEverythingAlwaysLocalScope{scopedVariable}", "scopedVariable=" + scopedVariable + " type=" + typeof(scopedVariable));
+    eval( "var scopedVariable;");
+}
+
+function EvalOrderEverythingAlwaysLocalScope() {
+    info("EvalEverythingAlwaysLocalScope{scopedVariable}", typeof(scopedVariable));
+    eval( "var scopedVariable;");
+    eval("scopedVariable = 'EvalEverythingAlwaysLocalScope'");
+    info("EvalEverythingAlwaysLocalScope{scopedVariable}", "scopedVariable=" + scopedVariable + " type=" + typeof(scopedVariable));
+}
+
+// *******************************************************
+
+var testsToRun = {
+    recursion_global : function() {
+        RecursionGlobal(1);
+    },
+    recursion_local : function() {
+        RecursionLocal(1);
+    },
+    test_always_local : function() {
+        delete scopedVariable;
+        AlwaysLocalScope();
+        try {
+            TestScope();
+            testManager.failed();
+        }
+        catch( e) {
+            info("test_always_local", "<b>Expected exception</b> (" + e.toString() + ")");
+        }
+    },
+    test_global_scope : function() {
+        GlobalScope();
+        TestScope();
+    },
+    test_local_and_global : function() {
+        GlobalScope();
+        TestScope();
+        AlwaysLocalScope();
+        TestScope();
+    },
+    test_never_reachable : function() {
+        NeverReachableAlwaysLocalScope(false);
+        try {
+            TestScope();
+            testManager.failed();
+        }
+        catch( e) {
+            info("test_number_reached", "<b>Expected exception</b> (" + e.toString() + ")");
+        }
+    },
+    unset_global_scope : function() {
+        GlobalScope();
+        TestScope();
+        UnsetGlobal();
+        try {
+            TestScope();
+            testManager.failed();
+        }
+        catch( e) {
+            info("unset_global_scope", "<b>Expected exception</b> (" + e.toString() + ")");
+        }
+    },
+    unset_function : function() {
+        info("unset_function{SomeFunction}", typeof(SomeFunction));
+        delete SomeFunction;
+        info("unset_function{SomeFunction}", typeof(SomeFunction));
+        info("unset_function{VariableSomeFunction}", typeof(VariableSomeFunction));
+        delete VariableSomeFunction;
+        info("unset_function{VariableSomeFunction}", typeof(VariableSomeFunction));
+    },
+    test_recursive_stack_old_way : function() {
+        var arrayToProcess = new Array();
+        arrayToProcess.push("value1");
+        arrayToProcess.push("value2");
+        var processedArray = new Array()
+        RecursiveStackOldWay(arrayToProcess, processedArray);
+        assertEquals(2, processedArray.length);
+        assertEquals("value1", processedArray.pop());
+        assertEquals("value2", processedArray.pop());
+    },
+    test_recursive_stack : function() {
+        var arrayToProcess = new Array();
+        arrayToProcess.push("value1");
+        arrayToProcess.push("value2");
+        processedArray = RecursiveStack(arrayToProcess);
+        assertEquals(2, processedArray.length);
+        assertEquals("value1", processedArray.pop());
+        assertEquals("value2", processedArray.pop());
+    },
+    test_eval_always_local : function() {
+        delete scopedVariable;
+        EvalAlwaysLocalScope();
+        try {
+            TestScope();
+            testManager.failed();
+        }
+        catch( e) {
+            info("test_eval_always_local", "<b>Expected exception</b> (" + e.toString() + ")");
+        }
+    },
+    test_everything_eval_always_local : function() {
+        delete scopedVariable;
+        EvalEverythingAlwaysLocalScope();
+        TestScope();
+    },
+    test_everything_order_eval_always_local : function() {
+        delete scopedVariable;
+        EvalOrderEverythingAlwaysLocalScope();
+        try {
+            TestScope();
+            testManager.failed();
+        }
+        catch( e) {
+            info("test_everything_eval_always_local", "<b>Expected exception</b> (" + e.toString() + ")");
+        }
+    }
+};
+</script>
+        <div id="unittestoutput"></div>
+        <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+    </body>
+</html>
+
+

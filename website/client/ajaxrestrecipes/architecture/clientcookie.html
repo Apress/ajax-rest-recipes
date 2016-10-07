@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Client Cookie</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+  </head>
+<script type="text/javascript">
+
+globals.errorHandler = function( e) {
+    document.getElementById( "error").innerHTML = document.getElementById( "error").innerHTML + "<br />" + e.toString();
+}
+globals.info = function( msg) {
+    document.getElementById( "error").innerHTML = document.getElementById( "error").innerHTML + "<br />" + msg;
+}
+
+function SetCookie() {
+    createCookie( document.getElementById( "cookiename").value,
+                 document.getElementById( "cookievalue").value, 2);
+}
+
+function GetCookie() {
+    document.getElementById( "cookievalue").value = readCookie( document.getElementById( "cookiename").value);
+}
+</script>
+  
+  <body>
+    <input type="button" value="Set Cookie" onclick="SetCookie()" /><br />
+    <input type="button" value="Get Cookie" onclick="GetCookie()" /><br />
+    Cookie Name: <input type="text" id="cookiename" /> Value: <input type="text" id="cookievalue" />
+    <div id="status"></div>
+    <div id="error"></div>
+  </body>
+</html>
+

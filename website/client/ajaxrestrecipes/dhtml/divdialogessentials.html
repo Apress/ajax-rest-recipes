@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>DIV dialog essentials</title>
+    </head>
+<style type="text/css">
+.background1 {
+    background-color: cyan;
+}
+.background2 {
+    background-color: blue;
+}
+</style>
+<script type="text/javascript">
+function Init() {
+    var element = document.getElementById( "child");
+    document.getElementById( "coordinates").innerHTML = "left (" + child.style.left + ") top (" + child.style.top + ")";
+    document.getElementById( "coordinates").innerHTML += " left (" + child.clientLeft + ") top (" + child.clientTop + ")";
+}
+</script>
+    <body onload="Init()">
+        <div class="background1" style="left:100px;top:100px;position:absolute">
+            Begin
+            <div id="child" class="background2" style="left:100px;top:100px;position:absolute">
+                hello
+            </div>
+            End
+        </div>
+        <span id="coordinates"></span>
+    </body>
+</html>
+

@@ -1,0 +1,73 @@
+<html>
+    <title>HTML Content Iteration Example</title>
+    <script language="JavaScript" src="/scripts/jaxson/xmlhelpers.js"></script>
+<script language="JavaScript" type="text/javascript">
+function el(id) {
+    return document.getElementById(id);
+}
+function OnClickMe() {
+    el( "injectedTextArea").value = HTMLIterator( el( "toBeIteratedElement"));
+}
+function OnClickMe2() {
+    el( "injectedTextArea2").value = "";
+    el( "injectedTextArea2").value = HTMLIterator( el( "injectDiv"));
+}
+function OnClickMe2InnerHTML() {
+    el( "injectedTextArea2").value = "";
+    el( "injectedTextArea2").value = el( "injectDiv").innerHTML;
+}
+function OnInjectContent() {
+    el( "injectDiv").innerHTML = el("injectedTextArea").value;
+}
+</script>
+    <body>
+        <p>This example requires a bit of time to understand because of the subtle behavior. Essentially what is being
+            illustrated is the inconsistency of the Dynamic HTML object model. The method HTMLIterator attempts to make up
+            for this problem and generates the same object model regardless of browser. The exception being is that if your
+            browser is acting like Microsoft Internet Explorer, but does not behave like Microsoft Internet Explorer! </p>
+        <p>Everything between the two bars will be dynamically injected into the second text area.Make
+            sure that before clicking the button that you modify the contents of the text box.</p>
+        <input type="button" value="Click me to extract and inject" onclick="OnClickMe()" />
+        <hr />
+        <div id="toBeIteratedElement">
+            <textarea id="toBeIterateTextArea" cols="60" rows="10">
+                Please fill me with something
+            </textarea><br />
+            <input type="text" id="toBeIteratedTextBox"  size="60" value="Change me" />
+        </div>
+        <hr />
+        <p>If in the generated text area you do not see the new text typed into the textarea and textbox then most likely you have set your
+            user-agent to be Microsoft Internet Explorer. EXCEPT, your browser is not feature to feature compatible with
+            Microsoft Internet Explorer. So QUITE IT and identify who you are!
+        </p>
+        <p>
+            The reason why there is a difference relates to the behavior of the innerHTML property. On Microsoft Internet Explorer
+            the property innerHTML reflects the current object model. For all other browsers it is something else entirely inconsistent as we shall see.
+        </p>
+        <textarea id="injectedTextArea" cols="60" rows="10">
+            Don't touch, it will be filled with the HTML from above!
+        </textarea>
+        <p>Clicking the Inject HTML button will causes the HTML text in the second text area to be injected into the div HTML element. This
+            results in the HTML being created dynamically, even though the original document did not contain the HTML.</p>
+        <input type="button" value="Inject HTML" onclick="OnInjectContent()" />
+        <hr />
+        <div id="injectDiv"></div>
+        <hr />
+        <p>The final twist is to take extract the dynamically generated HTML object model. To make this demo work, please
+            modify the contents of the generated textarea and textbox. First click on the Click me to extract dynamic and inject button, and then
+            the Click me to extract dynamic and inject using .innerHTML.</p>
+        <input type="button" value="Click me to extract dynamic and inject" onclick="OnClickMe2()" /><br/>
+        <input type="button" value="Click me to extract dynamic and inject using .innerHTML" onclick="OnClickMe2InnerHTML()" /><br/>
+        <textarea id="injectedTextArea2" cols="60" rows="10">
+            Don't touch, it will be filled with the HTML from above!
+        </textarea>
+        <p>If you are using a browser other than Microsoft Internet Explorer, then clicking the two buttons will generate
+            two different results. This is completely inconsistent. In the implementation of the innerHTML property of most browsers
+            other than Microsoft Internet Explorer the innerHTML property represents the content of the document as the document was loaded.
+            I don't agree with this, but if this is how they want to define it, fair enough. Where things get inconsistent is that when the
+            document was loaded the dynamic HTML did not exist. Therefore accessing .innerHTML should have generated an empty string. What
+            in fact happens is that innerHTML returns what was inject as an object model for the first time. That is inconsistent!
+        </p>
+    </body>
+</html>
+

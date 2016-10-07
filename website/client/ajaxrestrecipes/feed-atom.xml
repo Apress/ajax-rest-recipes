@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?><feed version="0.3"
+  xmlns="http://purl.org/atom/ns#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xml:lang="en"
+    >
+    <title>BloggerJacks</title>
+    <link rel="alternate" type="text/html" href="http://www.devspace.com" />
+    <tagline>Powwow On Ajax, Patterns, and Software Development</tagline>
+    <modified>2006-05-12T12:34:20Z</modified>
+    <copyright>Copyright 2006</copyright>
+    <generator url="http://wordpress.org/" version="2.0">WordPress</generator>
+            <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[Micro-Kernel vs Monolithic YET AGAIN!]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=191" />
+        <id>http://www.devspace.com/?p=191</id>
+        <modified>2006-05-12T12:34:20Z</modified>
+        <issued>2006-05-12T12:34:20Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[It seems Andy Tanenbaum, and Linus Torvalds are at it again. I am not going to chime in on the kernel argument since I have no kernel experience. What I am going to chime on is the use of metaphors.
+I am chiming in on this point because I am engineer! Mechanical (my degree) and civil [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=191"><![CDATA[<p>It seems Andy Tanenbaum, and Linus Torvalds are at it <a target="_blank" href="http://www.osnews.com/comment.php?news_id=14586">again</a>. I am not going to chime in on the kernel argument since I have no kernel experience. What I am going to chime on is the use of <a target="_blank" href="http://www.coyotos.org/docs/misc/linus-rebuttal.html">metaphors</a>.</p>
+<p>I am chiming in on this point because I am engineer! Mechanical (my degree) and civil engineering is not like software or electrical engineering because mechanical and civil engineering have to follow the rules of mechanics and statics.</p>
+<p>Part of the argument is whether or not an operating system is structured or unstructured. Consider the following quote:</p>
+<blockquote><p>What modern microkernel advocates claim is that properly       component-structured systems are engineerable, which is an       entirely different issue. There are many supporting examples for       this assertion in hardware, in software, in mechanics, in       construction, in transportation, and so forth. There are       <em>no</em> supporting examples suggesting that unstructured       systems are engineerable. In fact, the suggestion flies in the       face of the entire history of engineering experience going back       thousands of years. The triumph of 21st century software, if       there is one, will be learning how to structure software in a       way that lets us apply what we have learned about the       <em>systems</em> engineering (primarily in the fields of       aeronautics and telephony) during the 20th century.</p></blockquote>
+<p>Yes there are huge successes of engineering &#8220;unstructured&#8221; systems. Namely a bridge! A bridge cannot be assembled using components. A bridge is assembled using pieces that interlock with each other to support each other. And until the bridge is assembled there are huge engineering feats taking place to make sure that the bridge does not fall down!</p>
+<p>A bridge flies in the face of components because remove one or two trusses from a bridge and the entire darn bridge will collapse. I could build a bridge using components, as that would make bridge assembly much simpler. The problem is that components would make the bridge prohibitively expensive.<br />
+Let me give you a really simple example. Let&#8217;s say that I need a support for a bridge. I could build the support using a square architecture. That is  I put two blocks on the ground, and then another block ontop of the two blocks. In the square approach we have components that build on top of each other. However, the square approach has major flaws in that it is too darn heavy and cannot handle any torsional momentums.</p>
+<p>A better way to build a support is to use a triangle architecture. In a triangle architecture you only need two blocks (less materials), and when assembled has great torsional support. However, there is a catch to a triangular architecture, and that is how do you assemble the blocks? You can&#8217;t just assemble one block, you both blocks at the same time. In other words the strength and simplicity of the support is due to sum, and not pieces of the architecture.</p>
+<p>Try building a house of cards using a square architecture, and then try building it using a triangular architecture. Get my drift&#8230;
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[Blacklists Are a Bad Idea!]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=189" />
+        <id>http://www.devspace.com/?p=189</id>
+        <modified>2006-05-02T22:29:27Z</modified>
+        <issued>2006-05-02T22:29:27Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[About a year or more ago I turned on blacklists on our mail server. I kept it on for about three hours and turned it off. Why? Because people could not get in contact with me! Recently at SD there was a debate on how to stop SPAM. With current Bayesian SPAM detection software it [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=189"><![CDATA[<p>About a year or more ago I turned on blacklists on our mail server. I kept it on for about three hours and turned it off. Why? Because people could not get in contact with me! Recently at SD there was a debate on how to stop SPAM. With current Bayesian SPAM detection software it is very rare that an email is false marked, and I argued that Black lists are a bad idea because they block communications. Black lists block my ability to communicate with my clients. You only need to loose one client to get a bad image.<br />
+Well, last week something REALLY bad happened. Somehow our mail server managed to get on the <a target="_blank" href="http://cbl.abuseat.org/">bad list</a>! I have no idea how, because the answers they gave on their website said we had a loose network, etc. However, I know for a fact that nobody on our network has a spam bot, virus, etc. One could argue, &#8220;are you sure?&#8221; Yes I am sure, so trust me there was nothing wrong with our network. So how come we ended up on the list? No freaken idea, but because of it, one of my editors was not happy and I almost (hopefully not) lost a lucractive whitepaper job on very new technology.</p>
+<p>What bothers about these people at CBL is the following comment:</p>
+<p>&#8221; There is no supporting data or &#8220;evidence&#8221; file available for any given listing, and no mechanism to ask why any given listing took place.&#8221;</p>
+<p>Great, so anybody can add my email server to this list and cause me grief. Granted it is just as easy to remove my IP from the list, but the problem is I have to first figure out that I am on the list. What infuriates me is that when I checked my log files the remote email server accepted the email, and said so to my mail server. Yet internally the remote email server rejected the email, and did inform my email server! Great, wonderful, so how the heck am I supposed to figure out something went wrong? Wait until I start loosing work? And what is just wonderful is that this &#8220;organization&#8221; does not answer emails. A completely unaccountable organization is making decisions about my email! Yes I am angry!<br />
+This is why about a year or so ago I decided against blacklists because they are unreliable, and their consequences far outweigh the benefits! So if any administrator is reading this email, do me a favor and think hard about using black lists! One wrong lost email could cost you!
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[Migrated Website and Repository]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=187" />
+        <id>http://www.devspace.com/?p=187</id>
+        <modified>2006-04-25T20:25:36Z</modified>
+        <issued>2006-04-25T20:25:36Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[Because of XAMPP we decided to migrate our infrastructure to their distribution. We are almost complete, but it has been relatively painless. For those that do not know about XAMPP I highly advise looking at it. XAMPP is a one click installation of LAMP or WAMP (Linux &#124; Windows, Apache, MySQL, and PHP &#124; Perl). [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=187"><![CDATA[<p>Because of XAMPP we decided to migrate our infrastructure to their distribution. We are almost complete, but it has been relatively painless. For those that do not know about <a target="_blank" href="http://www.apachefriends.org/en/index.html">XAMPP</a> I highly advise looking at it. XAMPP is a one click installation of LAMP or WAMP (Linux | Windows, Apache, MySQL, and PHP | Perl). As much as I like the Ubuntu installation process it is not cross-platform, and XAMPP is. Hence our decision to move to XAMPP to make our future lives easier. So if there are any problems bear with us&#8230;
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[Open Source Linux Drivers Taking the Wrong Approach]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=185" />
+        <id>http://www.devspace.com/?p=185</id>
+        <modified>2006-04-17T14:54:46Z</modified>
+        <issued>2006-04-17T14:54:46Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[I saw this posting regarding Linux and Binary Only Drivers at CNET
+The debate is about binary only drivers and how they can be problematic in Linux. One emailer posted a doomsday scenario. Imagine it happened. To avoid doomsday what would be our alternative? As I type in this blog entry I am using Ubuntu Linux [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=185"><![CDATA[<p>I saw this posting regarding <a target="_blank" href="http://www.ussg.iu.edu/hypermail/linux/kernel/0512.0/index.html#0972">Linux and Binary Only</a> Drivers at <a target="_blank" href="http://news.com.com/New+Linux+look+fuels+old+debate/2100-7344_3-6061491.html?tag=nefd.lede">CNET</a></p>
+<p>The debate is about binary only drivers and how they can be problematic in Linux. One emailer posted a doomsday scenario. Imagine it happened. To avoid doomsday what would be our alternative? As I type in this blog entry I am using Ubuntu Linux on an ATI graphics card. According to one poster, this is the alternative.</p>
+<blockquote><p>On 12/5/05, William Lee Irwin III <wli @xxxxxxxxxxxxxx> wrote:<br />
+><em> I expect the closed source IP affairs rather to keep chipping away</em><br />
+><em> until Linux is dead, or they get tired and change strategies to kill it,</em><br />
+><em> versus any sudden changes of course.</em></p>
+<p>Alternatively, take away ndiswrapper and binary-only ATI and NVIDIA<br />
+drivers, and perhaps the users will start to care and pressure their<br />
+vendor to open up. I know I have become a very disappointed ATI<br />
+customer after figuring out that they have zero interest in me using<br />
+the hardware I paid for on Linux&#8230;</wli></p></blockquote>
+<p>According to this poster I would pressure ATI to release a driver. Ha! fat chance of that happening. I realize that with respect to some things I am a sheep and follow the crowd.  I have no desire to pressure ATI because I have better things to do with my life than tweak, fiddle, etc! For example I could use OSX, (oh yeah I already do). Many readers will be shaking their head and thinking &#8220;Idiot! People like you keep the Microsoft monopoly alive!&#8221;</p>
+<p>My answer back is &#8220;no, you are approaching the situation from the wrong angle!&#8221; It is not that I think the doomsday  is impossible, nor trivial but think there is another way to &#8220;skin this cat&#8221;. For example, when I buy computers, and devices I make sure that those computers and devices are compatible to my OS (Windows or OSX). These devices have logos, and the logo program is something Microsoft has figured out. When people buy devices they check for a logo!<br />
+If the FSF is so adamant about Open Source and drivers, then why not create a logo program! For all of the open source drivers that work today today send out a letter to the appropriate company saying, &#8220;Congratulations your driver works well on Linux and we would like to give you the chance to proudly and freely use the Linux approved device driver logo on your packaging&#8221;. When a marketing &#8220;wennie&#8221; reads this do you think he will say, &#8220;Oh that sucks&#8221;. No they will say, &#8220;ooooo we did nothing and got a logo!&#8221; They will use the logo on their packaging, just like they use the Windows and OSX logo.</p>
+<p>Then when a potential client picks up the device and sees the logos they will see &#8220;Works and approved on Linux&#8221;. Then their decision is, &#8220;Do I want Linux compatibitly or not&#8221;. The potential client might not be running Linux today, but they will be thinking, &#8220;hmm, maybe when I have some time I can twiddle with Linux&#8221;. When the potential client does twiddle, they will be twidlling with applications and NOT device drivers.</p>
+<p>The current approach of the FSF is to condemm and make the potential client feel bad! Instead what the FSF should be doing is waving a carrot to make the potential client feel good about their purchase. I think a logo program and some effective word of mouth marketing would do the trick! It might also make the overall experience with Linux much better.
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[Has Google Been Paradigm Shifted Out?]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=184" />
+        <id>http://www.devspace.com/?p=184</id>
+        <modified>2006-04-15T20:54:24Z</modified>
+        <issued>2006-04-15T20:54:24Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[Google drives me bonkers. Ok to be fair its not just Google, but most search engines. These days I can&#8217;t find things that I want or need and it is driving me bonkers. It seems that the problem are those websites trying to get a higher ranking and thus blocking stuff that interests me. Of [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=184"><![CDATA[<p>Google drives me bonkers. Ok to be fair its not just Google, but most search engines. These days I can&#8217;t find things that I want or need and it is driving me bonkers. It seems that the problem are those websites trying to get a higher ranking and thus blocking stuff that interests me. Of course Google or Yahoo could say, &#8220;Hey we will improve the search algorithm&#8221;. Well yeah, duh of course you will, but so will those people that are making my queries return stuff that I am not interested in.</p>
+<p>So what am I replacing Google or Yahoo with? Wikipedia! I find these days that Wikipedia has everything that I need, and since I speak three languages I search three different wikipedia&#8217;s. For example I did a recent search on the term &#8220;VIA C7M&#8221;. I wanted to know more about the chip in my new Origami device.</p>
+<p>Here is the google search result.</p>
+<p><img src="http://www.devspace.com/~cgross/pics/googlesearch.jpg" /></p>
+<p>Here is the wikipedia search result.</p>
+<p><img src="http://www.devspace.com/~cgross/pics/wikipedia.jpg" /></p>
+<p>It seems that Wikipedia search lead us astray, but in fact the second link is everything I wanted to know. In contrast Google contained a number of garbage links that told me absolutely nothing about the VIA chip. For example, I did not know that VIA is the &#8220;new name&#8221; for Cyrix. To have Google come up with something better I would have had to know that VIA = Cyrix!</p>
+<p>These days this keeps on happening all too often to me&#8230; I think the search engines need to rethink their strategy because I know I am switching my &#8220;search engines&#8221;.
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[Is Origami Linux&#8217;s Break Out Moment?]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=183" />
+        <id>http://www.devspace.com/?p=183</id>
+        <modified>2006-04-14T10:11:13Z</modified>
+        <issued>2006-04-14T10:11:13Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[I am getting an Origami device in a couple of weeks and I am damm excited! I can&#8217;t wait to get my hands on this device as it what I have been hunting for the longest time. However, I took a moment to step back and think about this device a moment.
+Recently I decided to [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=183"><![CDATA[<p>I am getting an Origami device in a couple of weeks and I am damm excited! I can&#8217;t wait to get my hands on this device as it what I have been hunting for the longest time. However, I took a moment to step back and think about this device a moment.</p>
+<p>Recently I decided to download Fedoar 5, and installed it on my Inspiron 8200. So I decided to install Ubuntu on my Inspiron 6000. Ubuntu installed like a charm with everything recognized (1920&#215;1200 screen, wireless, etc, etc). I was in awe!</p>
+<p>So now it got me to thinking. Linux still is not up to snuff to Windows, but do I care? I am getting an Origami device, which for all intensive purposes is a full blown Windows Tablet XP installation. That means I can print, use Office 2003, scan and do whatever I need to that is &#8220;buggy&#8221; on Linux. Frankly, I can&#8217;t be bothered to figure out the printer, scanner etc on Linux.  Because I am careful when buying my IDE&#8217;s I have my IDE&#8217;s on three platforms (OSX, Linux, and Windows). Thus for my workhorse purposes Linux fulfills my needs as well as Windows does.</p>
+<p>Here is the big question. If I am happy with Linux and my Origami device could this not be the momentum that Linux needs to break out on the desktop? Yes, I still pay the &#8220;Windows tax&#8221;, but frankly I don&#8217;t care. I paid 850 USD for my Origami device and that is not that bad! With 850 USD I get a portable information center that can print, scan, etc, etc. Contrast that to how many hours I would have to spend to get everything working properly on Linux. And recently Samsung has announced an Origami device for 700 USD. Spread 850 over three years, as I will put the device on a three year rotation, is one dollar a day! Come on people, skip that extra cup of java and you will the Origami device paid off very quickly.<br />
+I am tempted to believe that this is a Linux break out moment!
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[Fedora 5, Oh How I missed Thee&#8230;]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=182" />
+        <id>http://www.devspace.com/?p=182</id>
+        <modified>2006-04-12T12:06:45Z</modified>
+        <issued>2006-04-12T12:06:45Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[Being the glutton for punishment I am, I decided yet again to install a Linux distribution on the desktop. Thus far my experiences have been very lackluster.
+I decided to bite the bullet and downloaded Fedora 5. With my 6.4 MBit pipe I downloaded one 700 MB CD in about 20 minutes. So downloading 5 CD&#8217;s [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=182"><![CDATA[<p>Being the glutton for punishment I am, I decided yet again to install a Linux distribution on the desktop. Thus far my experiences have been very lackluster.</p>
+<p>I decided to bite the bullet and downloaded Fedora 5. With my 6.4 MBit pipe I downloaded one 700 MB CD in about 20 minutes. So downloading 5 CD&#8217;s meant waiting about an hour and a half. I could handle that&#8230; A long coffee later I burned the CD&#8217;s and booted my machine. Having made my selections I let the system install itself. What was scary is that it took longer to install the software than to download the software. This leads me to wonder, do we really need CD&#8217;s? How about doing live installs, but using a proxy that keeps the data locally? Hmmm&#8230; I know I am frustrated with constantly downloading the same software over and over again. A proxy repository would be an interesting thing&#8230;</p>
+<p>Ok after the installation was complete I decided to use Fedora. And to my delight EVERYTHING worked! I was in awe. Fedora just worked, and with a friendly package manager and better administrative switching abilities Fedora JUST worked! Deciding to experiment I downloaded CodeWeavers CrossOver toolkit so that I could install Office 2000. Two install&#8217;s later, Word was running on my box! I was in awe! The remaining tools were simple as I generally buy cross-platform tools.</p>
+<p>So while Fedora still has some buggaboos I am pleasently surprised and will be using it in the future! Oh Fedora, how I missed thee</p>
+<p>On another note I learned about <a target="_blank" href="http://www.apachefriends.org/en/xampp.html">XAMPP</a> and installed it. That product is absolutely amazing! XAMPP is a self contained single install for Apache, MySQL, PHP, and few odds and ends. It is an amazing product! To top it off it is cross-platform (Linux, OSX, and Windows). With a product like that I wonder about the need of using Ubuntu Server? What attracts me to Ubuntu Server is its low level of maintenance. I have used many different server operating systems and it does not get simpler with Ubuntu. Though with Ubuntu I am limited to Linux. My problem is that often I need to try things out on other operating systems and the Ubuntu configuration system is unique. I am not saying bad, but unique. With XAMPP I can manage my configuration files centrally and carry them across platforms, or at least that is the theory.</p>
+<p>Sideline note, I have noticed with my 6.4Mbit down and 650K up pipe that most websites have throttlers at around 1 to 1.5 MBits! Hmmm, this makes me feel <a target="_blank" href="http://tabletumlnews.powerblogs.com/posts/1144806181.shtml">sorry for friends</a> like Martin who is still surfing the web using a 64K line! My sister who lives in Quito was recently upgraded from 64K to 256K and was disgusted in a Skype call between my mother, my sister, and myself when my mother and I were seeing how fast our lines were. My mother&#8217;s connection was 2.5 MBit. As my sister said, &#8220;at least I have time to get a coffee, while the rest of you have to get back to work right away!&#8221;.
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[Jaxson and the Permutations Pattern are Coming Together]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=180" />
+        <id>http://www.devspace.com/?p=180</id>
+        <modified>2006-03-29T23:00:46Z</modified>
+        <issued>2006-03-29T23:00:46Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[I am working on Jaxson and tonight I implemented the Permutations pattern completely with all extensions. What that means is the ability to pick and choose your input and output formats.
+For example, let&#8217;s say that I have a calculator application that can add two numbers. In a traditional web service you would create the service [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=180"><![CDATA[<p>I am working on Jaxson and tonight I implemented the Permutations pattern completely with all extensions. What that means is the ability to pick and choose your input and output formats.</p>
+<p>For example, let&#8217;s say that I have a calculator application that can add two numbers. In a traditional web service you would create the service at the URL.</p>
+<p>/services/calculator</p>
+<p>At that URL there would be a Web Service like SOAP to pick up the request and process the data. But what if you could &#8220;remember&#8221; your operations. Then you would use a URL like</p>
+<p>/services/calculator/12353534543</p>
+<p>The numbers at the end reference a temporary URL that is a history of the calls you made. This means you can make a bunch of requests and then using the URL&#8217;s get the old data. Compare this to a traditional calculator where to keep a memory you need to explicitly create the functionality. With Jaxson you would get that for free.</p>
+<p>Where I thought things became pretty cool is the fact that Jaxson can dynamically read data in one format and spit it out in another format. For example traditionally, if I make a Web Service request in SOAP the server sends SOAP. But what if you could send the data in SOAP, but want to receive an image? Jaxson lets you do that. The client can pick and choose the format that they want to send and receive. The server will dynamically adjust and process the data.<br />
+For those that want to play around the sources are in the Jaxson.Java sources, but be warned its pretty alpha right now.
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[6Mbit Wow&#8230;]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=177" />
+        <id>http://www.devspace.com/?p=177</id>
+        <modified>2006-03-29T07:41:09Z</modified>
+        <issued>2006-03-29T07:41:09Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[Our ADSL was upgraded to download at 6 MBit, and upload at 600K. I thought the numbers noted in my router were a joke or incorrect. I thought it was incorrect because most sites seem to top out at 100KB. I just downloaded from Microsoft&#8230;. 383KB&#8230; Wow that 21 MB was downloaded in about 30 [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=177"><![CDATA[<p>Our ADSL was upgraded to download at 6 MBit, and upload at 600K. I thought the numbers noted in my router were a joke or incorrect. I thought it was incorrect because most sites seem to top out at 100KB. I just downloaded from Microsoft&#8230;. 383KB&#8230; Wow that 21 MB was downloaded in about 30 seconds. Sourceforge 420KB drool&#8230; Cool!
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[Monolith = No Copyright? I think not!]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=175" />
+        <id>http://www.devspace.com/?p=175</id>
+        <modified>2006-03-27T08:38:03Z</modified>
+        <issued>2006-03-27T08:38:03Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[There is new project called Monolith. The idea behind Monolith is that you take an original copyrighted file, combine with gobbly-gook and the resulting file is not subject to copyright law.
+From the website I qoute:
+Things get interesting when you apply Monolith to copyrighted files. For example, munging two copyrighted files will produce a completely new [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=175"><![CDATA[<p>There is new project called <a target="_blank" href="http://monolith.sourceforge.net/">Monolith</a>. The idea behind Monolith is that you take an original copyrighted file, combine with gobbly-gook and the resulting file is not subject to copyright law.<br />
+From the website I qoute:</p>
+<blockquote><p><em>Things get interesting when you apply Monolith to copyrighted files. For example, munging two copyrighted files will produce a completely new file that, in most cases, contains no information from either file. In other words, the resulting Mono file is not &#8220;owned&#8221; by the original copyright holders (if owned at all, it would be owned by the person who did the munging). Given that the Mono file can be combined with either of the original, copyrighted files to reconstruct the other copyrighted file, this lack of Mono ownership may be seem hard to believe.</em></p></blockquote>
+<p>I think this is a weak and flimsy argument because from the US gov <a target="_blank" href="http://www.copyright.gov/circs/circ1.html">copyright website</a> the ability to design derivative works is part of the copyright.</p>
+<blockquote><p><em><span class="main_txt">To prepare <strong><em>derivative works</em></strong> based upon the          work;</span> </em></p></blockquote>
+<p>When you use Monolith to create a new piece of music you are creating a derivative because the original piece of music is embedded within the new piece of work. From what I know about copyright it is not just about the end product. Of course he makes the derivative music argument. But what I think is missing is that the music can be reconstructed, and hence is a derivative piece of work. What I think would make it a derivative piece of work is the following comment:</p>
+<blockquote><p><em> Interesting?   Not really.   But what you can do </em><em>with these files, in the privacy of your own home, might be interesting, depending on your proclivities.   For example, you can use the Mono files and the Basis files to reconstruct the Element files. </em></p></blockquote>
+<p>Even though later in the article there is a provision in copyright where similar sounds cannot be copyrighted, the matter of the fact is that the files that are being distributed contain the original content. Frankly, if it was this easy then I could encrypt a file, and call the gibberish generated by the encryption as &#8220;new content&#8221;. I doubt that argument would go very far in a court of law.</p>
+<p>Why is he making the assertion that copyright and derivative laws do not apply? I think he is doing a literal reading of copyright. Very often, and this is what put Napster into hot water, there is intent. If the intent is to deceive and circumvent the law, then you are breaking the law. Though I am not a lawyer, just somebody who had to take law courses to get an engineering degree.</p>
+<p>Let&#8217;s put it into a context that we all understand. Using the Monolith strategy we could take a piece of GPL software, munge it and then the GPL would not apply. Ha! Try getting that argument past Richard Stallman&#8230;</p>
+<p>What I want to remind the reader is that Open Source uses copyright to give you the freedom, and the Music or Video companies use copyright to restrict your freedom. Yet both are based on the laws of copyright. I say this because I often find those that want to circumvent the law for music or videos would cry bloody murder if the same were done to GPL software.
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[Microsofties Are Missing the Point]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=174" />
+        <id>http://www.devspace.com/?p=174</id>
+        <modified>2006-03-27T00:31:39Z</modified>
+        <issued>2006-03-27T00:31:39Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[It seems that a bunch of Microsoft&#8217;ies are missing the point. A while back I blogged how Microsoft is going to get out of the classic software business and move into the domains of X-Box, Windows Services, etc. Well, I think it has happened and Vista is delayed because of it. As a result people [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=174"><![CDATA[<p>It seems that a bunch of Microsoft&#8217;ies are <a target="_null_" href="http://minimsft.blogspot.com/2006/03/vista-2007-fire-leadership-now.html">missing the point</a>. A while back I blogged how Microsoft is going to get out of the classic software business and move into the domains of X-Box, Windows Services, etc. Well, I think it has happened and Vista is delayed because of it. As a result people are asking for the heads of Microsoft head managers.</p>
+<p>Those individuals are missing the point because of how the market has changed in the last few years:</p>
+<ol>
+<li>People don&#8217;t give three whoops about the operating system.</li>
+<li>People care about the applications that run on the operating systems.</li>
+<li>People care about being able to access their data across a network.</li>
+</ol>
+<p>I see it with myself. I don&#8217;t care if I run Windows, OSX, or Linux. I care about being able to access my data on the three operating systems. Heck, for that Windows 2000 is good enough. As I type this email my Windows XP desktop has been configured to look and feel like Windows 2000 as the Windows XP extra features drive me bonkers!</p>
+<p>Wanna know what gets me excited? Origami, and Windows Live is what gets me excited! I am so pysched about Origami like I have not been for anything Microsoft in a VERY long time. Last time I was pysched was Windows 95, and their Internet shift, which was a decaded ago! Origami, and Windows Live will drive the Microsoft profit machine. Vista? I installed it once six months ago and it lasted an entire two hours on my hard disk before being formated to run Windows XP.</p>
+<p>In fact I am going to make a prediction. Four years down the road people will see this moment as a pivot in the business model of Microsoft and they will think it was a good move.
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[Is There a Link Between Violence and Video Games?]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=173" />
+        <id>http://www.devspace.com/?p=173</id>
+        <modified>2006-03-24T23:18:02Z</modified>
+        <issued>2006-03-24T23:18:02Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[I was just listening to the German news and they were commenting about the European Video Game championship. At the same time there was a very large conference on experts trying to figure out the effects of video games on the human psyche.
+Their findings are that video games do not cause people to become violent. [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=173"><![CDATA[<p>I was just listening to the German news and they were commenting about the European Video Game championship. At the same time there was a very large conference on experts trying to figure out the effects of video games on the human psyche.</p>
+<p>Their findings are that video games do not cause people to become violent. However, what video games do cause is escapism. Their point was that if somebody has a hard time dealing with reality, then they will escape into their virtual video game world. In the experts opinion this is a problem because it means that those that are escaping reality will not try to deal with reality, and hence start off a spiral. This could cause the following to happen:</p>
+<ol>
+<li>Teenager is bullied in school.</li>
+<li>Teenager escapes in their virtual world.</li>
+<li>Teenager bullying intensity increases causing a deeper rooted need to escape.</li>
+<li>Snap&#8230;</li>
+</ol>
+<p>The report did not say anything beyond that, but their point was that the problem is not video games, but the environment around the individual.</p>
+<p>What I found interesting is that it is a bunch of Europeans who came up with this conclusion&#8230;
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[Are Mashup&#8217;s a Good Idea?]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=172" />
+        <id>http://www.devspace.com/?p=172</id>
+        <modified>2006-03-23T19:39:03Z</modified>
+        <issued>2006-03-23T19:39:03Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[Last week when I was at Software Development I attended the SOA Everywhere? BOF. It was an interesting discussion and I raised a question regarding mashup&#8217;s and the use of SOA. My question went as follows:
+&#8220;If I create a web service that relies on external web services am I not creating a dependency that may [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=172"><![CDATA[<p>Last week when I was at Software Development I attended the SOA Everywhere? BOF. It was an interesting discussion and I raised a question regarding mashup&#8217;s and the use of SOA. My question went as follows:</p>
+<p><em>&#8220;If I create a web service that relies on external web services am I not creating a dependency that may cause me grief in the future. For example, if I rely on Amazon for certain information what happens when they deny me access to their web service for one reason or another&#8221;.</em></p>
+<p>People answered the question and told me that if Amazon cuts me off, well then I can go to another service provider because it is a free market.</p>
+<p>Well&#8230; and here was my point. No, its not a free market because on the Internet there is no real competition like there is in the &#8220;free market&#8221; world. For example, if I build a car I have the choice of multiple suppliers, tire companies, engine makers, etc, etc who can all provide me with parts. Each of these providers from a competitive perspective are relatively equal.</p>
+<p>On the Internet we have a completely different story. There is only one Amazon, one Google, one EBay, one ITunes, etc. The &#8220;second and third&#8221; competitors are miles behind the first and that does not seem to be changing very quickly. It worries me that we have an eco-system that makes the Microsoft Office Monopoly seem like there is competition. When I raised that point people responded by saying, &#8220;There is always Barnes and Noble, and Yahoo search&#8221;.  Yet when I look at Barnes and Noble and Yahoo they are nowhere near the capabilities of Amazon or Google.<br />
+So I ask you the reader, is this not a serious problem that we are running into without thinking about? After all, if you look closely at those mashup agreements that you agree to the service providers (Amazon, Google, etc) own the data, you only get the right to &#8220;borrow&#8221; it at their discretion!
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[Release Announcement: Jaxson v0.5]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=171" />
+        <id>http://www.devspace.com/?p=171</id>
+        <modified>2006-03-22T21:33:08Z</modified>
+        <issued>2006-03-22T21:33:08Z</issued>
+        
+    <dc:subject>General</dc:subject>
+    <dc:subject>Jaxson</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[I am happy to announce that the patterns for the book Ajax Patterns and Best Practices have a name, and it is Jaxson. Jaxson was proposed by Ron Szumski and a signed copy of my book is on the way. I know I wanted to create a poll, but when I saw the name I [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=171"><![CDATA[<p>I am happy to announce that the patterns for the book Ajax Patterns and Best Practices have a name, and it is Jaxson. Jaxson was proposed by Ron Szumski and a signed copy of my book is on the way. I know I wanted to create a poll, but when I saw the name I thought fantastic.</p>
+<p>The sources for Jaxson are available in subversion database at the URL</p>
+<p><a href="http://www.devspace.com/repos/ajax/jaxson/trunk"> http://www.devspace.com/repos/ajax/jaxson/trunk</a> .</p>
+<p>Currently only the Java patterns have been converted to a framework with the exception being the State Navigation pattern. For the .NET implementation the Permutations, Infinite Data, and Representation Morphing have been converted.<br />
+Additionally the new URL for the pattern implementation websites are <a href="http://ajaxpatterns.devspace.com/">http://ajaxpatterns.devspace.com</a>. I want to thank Stefan Deusch for pointing out how to create a more friendly URL using Apache&#8217;s reverse proxy.</p>
+<p>And the last announcement is that a Ruby port is on the way and is being managed by Pat Eyler (Thanks Pat!).</p>
+<p>I also want to say a big thank-you to David Naas for helping me make the Infinite Data pattern robust. The updated pattern implementation is available in the Jaxson source code.</p>
+<p>Remember if there are any requests, or questions just email me at christianhgross at yahoo.ca. In the future release announcements for Jaxson will only be distributed on my blog at <a href="http://www.devspace.com./">http://www.devspace.com.</a> Exceptions being if there are major Jaxson announcements.
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[Http Validation Ajax Inconsistencies&#8230;]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=170" />
+        <id>http://www.devspace.com/?p=170</id>
+        <modified>2006-03-22T13:19:48Z</modified>
+        <issued>2006-03-22T13:19:48Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[Last week I was talking on stage at Software Development and illustrated the Cache Controller pattern. I opened a browser and ran the demo, except that the demo did not work. At that point I paniced and thought &#8220;Huh?&#8221; The problem was that it seemed that my Cache Controller pattern did not work with Firefox.
+The [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=170"><![CDATA[<p>Last week I was talking on stage at Software Development and illustrated the Cache Controller pattern. I opened a browser and ran the demo, except that the demo did not work. At that point I paniced and thought &#8220;Huh?&#8221; The problem was that it seemed that my Cache Controller pattern did not work with Firefox.</p>
+<p>The Cache Controller pattern is used to solve the problem of not having to always get the content when using the XMLHttpRequest object. You need it to do URL prefetching (like Google maps).</p>
+<p>Today I had a chance to go through the demo and analyzed what happened and it is not pretty. To make the Cache Controller work on the client side Entity tags (ETag) are managed by JavaScript. When making plain vanilla HTTP requests from the browser those ETag&#8217;s are managed by the browser. Where the pattern comes into play is the fact that not all browsers will support ETag&#8217;s from the XMLHttpRequest object. And if they do it is inconsistent.</p>
+<p>So here are my research findings for when an XMLHttpRequest request is made with the Cache Controller pattern not active, but the server side sends ETag&#8217;s.</p>
+<ul>
+<li>Mozilla (1.7.12): Ignores the ETag and makes the same request over and over.</li>
+<li>Safari (2.0.3): Ignores the ETag and makes the same request over and over.</li>
+<li>Opera (8.53): Utilizes the ETag, but when an identical request is made does not make the request and pulls the information from the cache.</li>
+<li>Firefox (1.5.0.1): Utilizes the ETag and when an identical request is made queries the server and understands HTTP 304 code.</li>
+<li>IE (6.0.290): Utilizes the ETag, but when an identical request is made does not make the request and pulls the information from the cache.</li>
+</ul>
+<p>Based on these findings the only browser that manages ETag&#8217;s properly is Firefox. Mozilla and Safari don&#8217;t understand the tags and that is wrong. Opera, and IE understand the tags, but do not perform a validation when asked and that is wrong as well.</p>
+<p>Now let&#8217;s do the same thing over, but with the Cache Controller pattern active, and see what the results are:</p>
+<ul>
+<li>Mozilla (1.7.12): Ignores the ETag, and the Cache Controller implements the validation.</li>
+<li>Safari (2.0.3): Ignores the ETag and the Cache Controller implements the validation.</li>
+<li>Opera (8.53): Utilizes the ETag&#8217;s, but when an identical request is made does not make the request and pulls the information from the cache. Cache Controller is not involved whatsoever.</li>
+<li>Firefox (1.5.0.1): Utilizes the ETag&#8217;s and when an identical request is made queries the server and understands HTTP 304 code. Cache Controller does not realize that the browser has managed the validation.</li>
+<li>IE (6.0.290): Ignores the ETag, and the Cache Controller implements the validation.</li>
+</ul>
+<p>Based on these results, Firefox does the right thing, but there is double take happening. Inconvient, but ok. Opera on the other hand does the wrong thing! This is a bug because HTTP validation explicitly says you must validate to check for new content. HTTP Validation is a form of active cache and not time delayed cache.
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[The Straw That Broke The Camel&#8217;s Back!]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=169" />
+        <id>http://www.devspace.com/?p=169</id>
+        <modified>2006-03-21T20:57:26Z</modified>
+        <issued>2006-03-21T20:57:26Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[I have tried for the past few years to use Mono. And everytime Mono has a problem I have thought, &#8220;They will get it to work soon&#8221;. Well, now the straw has fallen that broke the camel&#8217;s back. This was strike four!
+Strike one: For my book when I made cross-AppDomain calls on the same computer [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=169"><![CDATA[<p>I have tried for the past few years to use Mono. And everytime Mono has a problem I have thought, &#8220;They will get it to work soon&#8221;. Well, now the straw has fallen that broke the camel&#8217;s back. This was strike four!</p>
+<p>Strike one: For my book when I made cross-AppDomain calls on the same computer Mono kept crashing as that functionality was not properly implemented. (Works in MS.NET)<br />
+Strike two: Writing the Permutations pattern the ASP.NET redirection is not properly implemented and I had to do a manual page compile. (Works in MS.NET)</p>
+<p>Strike three: Infinite Data pattern causes Mono ASP.NET to crash! (Works in MS.NET)</p>
+<p>Strike four: Too many calls were made to XSP and XSP stopped accepting requests even though XSP was still running! (Works in MS.NET)</p>
+<p>I have used many pieces of Open Source and more often than not the results are good. But Mono seems to have too many smaller problems. From my perspective the reality is that Java is the only cross-platform game in town (assuming you want to stick to a static language). Sad actually&#8230; I had high hopes for it.
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[On Doing Stupid Things]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=168" />
+        <id>http://www.devspace.com/?p=168</id>
+        <modified>2006-03-21T12:31:24Z</modified>
+        <issued>2006-03-21T12:31:24Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[When I was a teenager growing up in the Canadian country side we did some REALLY dumb things.  For example;
+
+On a January evening sliding down a hill with a sled in my underwear playing chicken on who would be the first to fall in the snow.
+Playing tackle football with a stop sign.
+Lighting my friend&#8217;s cigarette [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=168"><![CDATA[<p>When I was a teenager growing up in the Canadian country side we did some REALLY dumb things.  For example;</p>
+<ol>
+<li>On a January evening sliding down a hill with a sled in my underwear playing chicken on who would be the first to fall in the snow.</li>
+<li>Playing tackle football with a stop sign.</li>
+<li>Lighting my friend&#8217;s cigarette with a live snowmobile spark plug. (BTW don&#8217;t try this as a live sparkplug is well, LIVE, and delivers quite shock)</li>
+</ol>
+<p>You will probably be saying, WOW that is stupid! Yes it was, but at the time the logic seemed watertight. Let&#8217;s just say good judgement was not high on the priority list and as such I am glad I survived.</p>
+<p>However, I do have a problem with the <a target="_blank" href="http://news.com.com/Roomba+takes+Frogger+to+the+asphalt+jungle/2100-1043_3-6049922.html?tag=nefd.pop">following</a>. Supposedly for fun people started chasing a remote control vaccum across a road. A sort of real life frogger. It is not that I am a fuddy-duddy, but from my teenage years there was a golden rule. You can do stupid things to yourself, but you never did anything that could prove dangerous to other people. I tried to remember if there ever was a time when we did stupid things that involved putting somebody else at risk. Answer, I could only think of a couple of situations, and those situations were considered extremely poor taste by my friends! In other words, when it happened it was not considered cool!</p>
+<p>What bothers me about playing frogger in real life is that if I was a driver encountering this device I would have swerved to avoid it. Now imagine that I swerved, crashed and hurt somebody? Who would be at fault, and would the owners of the vaccum accept responsibility? What if somebody was seriously injured and killed? Maybe I am overeacting, but doing stupid things that could qualify for the Darwin Awards stops being funny when innocent people are involved. I find it especially bad taste when supposedly intelligent adults (to top it off the editor of Make Magazine) would think of doing this. In my opinion it reminds me of those jerk kids that threw snowballs, or paintballs, or waterballoons at cars and thought it was funny!
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[Back from SD and What About My Mac?]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=167" />
+        <id>http://www.devspace.com/?p=167</id>
+        <modified>2006-03-19T17:42:52Z</modified>
+        <issued>2006-03-19T17:42:52Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[So I am back from SD and people asked me what happened to my PowerBook? They asked because they knew I really liked it, and that it was odd for me to be using a Windows machine. Well, many have talked about the price differences regarding Apple and Mac, and today I have proof of [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=167"><![CDATA[<p>So I am back from <a href="http://www.sdexpo.com">SD</a> and people asked me what happened to my PowerBook? They asked because they knew I really liked it, and that it was odd for me to be using a Windows machine. Well, many have talked about the price differences regarding Apple and Mac, and today I have proof of what many say. Apple notebooks are more expensive than Dells.</p>
+<p>This is an Apple:</p>
+<p><img src="http://www.devspace.com/~cgross/pics/AppleModel.jpg" /></p>
+<p>And here is the exactly same configured Dell model (including 3 year warranty)</p>
+<p><img src="http://www.devspace.com/~cgross/pics/DellModel.jpg" /></p>
+<p>Notice the difference in price? It is 1413 CHF or about 1095 USD. The Dell is 1/3 less than an exactly identically configured Apple. This is what caused me to think twice about buying an Apple. It is not that I dislike Apple, in fact I love my old G4 Powerbook, and I love OSX. I cannot justify paying a third more because of a nicer operating system. Note that when I did my price comparison I configured Windows XP Professional, not Home as OSX client edition has more similarities to XP Professional.</p>
+<p>This is why I am down on Apple. I am not asking Apple to beat Dell, as that is hard. What I was expecting was to pay a 300-400 USD dollar premium, not nearly 1100 USD.<br />
+To put it in perspective. For the price of an Apple notebook I could buy a Dell Notebook, Ultra Mobile PC, and IPod Nano! Makes you think, no?
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[Ajax Patterns Framework Update]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=166" />
+        <id>http://www.devspace.com/?p=166</id>
+        <modified>2006-03-10T20:33:53Z</modified>
+        <issued>2006-03-10T20:33:53Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[There is a new update to the Ajax Patterns Framework related to the .NET 1.1 implementation and a snapshot is available at the URL http://www.devspace.com/~cgross/sources/snapshot/ajaxframework.zip. Please note that the framework is not complete (though the pattern implementations are), but will be in the next month or so.
+One big problem I have right now is the [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=166"><![CDATA[<p>There is a new update to the Ajax Patterns Framework related to the .NET 1.1 implementation and a snapshot is available at the URL <a target="_blank" href="http://www.devspace.com/~cgross/sources/snapshot/ajaxframework.zip">http://www.devspace.com/~cgross/sources/snapshot/ajaxframework.zip</a>.<span class="plogBodyText"> Please note that the framework is not complete (though the pattern implementations are), but will be in the next month or so.</span></p>
+<p>One big problem I have right now is the name of the Ajax Patterns Framework. The name is Ajax Patterns Framework, which is as interesting as molasses on a January day in Canada. Could somebody send me a better name? I will gather the emails, choose four or five and create a poll. The winner will get a free autographed copy of my Ajax Patterns book, and if you have that book already and don&#8217;t want a second copy I will give away a free autographed copy of my upcoming Ajax Recipes book. Please send your emails to christianhgross at yahoo.ca.
+</p>
+]]></content>
+    </entry>
+        <entry>
+        <author>
+            <name>SerpentMage</name>
+        </author>
+        <title type="text/html" mode="escaped"><![CDATA[Ajax Patterns And Best Practices Update]]></title>
+        <link rel="alternate" type="text/html" href="http://www.devspace.com/?p=165" />
+        <id>http://www.devspace.com/?p=165</id>
+        <modified>2006-03-07T21:39:37Z</modified>
+        <issued>2006-03-07T21:39:37Z</issued>
+        
+    <dc:subject>General</dc:subject>
+        <summary type="text/plain" mode="escaped"><![CDATA[I have posted the latest sources of the Ajax Patterns and Best Practices book at the URL http://www.devspace.com/~cgross/ajaxpatterns/snapshot/ajaxpatterns.zip. Contained in the sources are the Java, and .NET implementations.
+As per reader request I have started the pattern framework and the sources are available in the subversion database http://www.devspace.com/repos/ajax.
+And as per my poll (the results are not [...]]]></summary>
+        <content type="text/html" mode="escaped" xml:base="http://www.devspace.com/?p=165"><![CDATA[<p>I have posted the latest sources of the Ajax Patterns and Best Practices book at the URL <a target="_blank" href="http://www.devspace.com/~cgross/ajaxpatterns/snapshot/ajaxpatterns.zip">http://www.devspace.com/~cgross/ajaxpatterns/snapshot/ajaxpatterns.zip</a>. Contained in the sources are the Java, and .NET implementations.</p>
+<p>As per reader request I have started the pattern framework and the sources are available in the subversion database http://www.devspace.com/repos/ajax.</p>
+<p>And as per my poll (the results are not a fluke, its real!) a Ruby implementation of the framework is coming soon. So please stay tuned.
+</p>
+]]></content>
+    </entry>
+    </feed>

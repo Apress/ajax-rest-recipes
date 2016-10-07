@@ -1,0 +1,99 @@
+<html>
+  <head>
+    <title>Using Functions To Initialize and Make Decisions</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+    <script language="javascript" src="/scripts/jaxson/jsUnitCore.js"></script>
+  </head>
+  <body>
+<script language="javascript">
+// *******************************************************
+var didInitialize = false;
+
+function DoInitialization( obj) {
+    obj.value = 3;
+    didInitialize = true;
+    info( "DoInitialization", "doing initialization");
+}
+
+function ClassicalManipulateObject( obj) {
+    info( "ClassicalManipulateObject", "Starting");
+    if( !didInitialize) {
+        DoInitialization( obj);
+    }
+    else {
+        info( "ClassicalManipulateObject", "no initialization necessary");
+    }
+    assertEquals( 3, obj.value);
+    info( "ClassicalManipulateObject", "Ending");
+}
+
+// *******************************************************
+
+function InitializeEmptyObject() {
+    info( "InitializeObject", "empty implementation");
+}
+
+function ResetInitializeObject() {
+    InitializeObject = function( obj) {
+        obj.value = 3;
+        info( "InitializeObject", "doing initialization");
+        InitializeObject = InitializeEmptyObject;
+    }
+}
+
+ResetInitializeObject();
+
+function ManipulateObject(obj) {
+    info( "ManipulateObject", "Starting");
+    InitializeObject( obj);
+    assertEquals( 3, obj.value);
+    info( "ManipulateObject", "Ending");
+}
+
+// *******************************************************
+function ToggleLight() {
+    ToggleLight.on = function() {
+        ToggleLight.curr = ToggleLight.off;
+        return "on";
+    }
+    ToggleLight.off = function() {
+        ToggleLight.curr = ToggleLight.on;
+        return "off";
+    }
+    try {
+        return ToggleLight.curr();
+    }
+    catch( e) {
+        info( "ToggleLight", "initialization...");
+        return ToggleLight.on();
+    }
+}
+// *******************************************************
+
+var testsToRun = {
+    classical_initialization : function() {
+        var obj = new Object();
+        ClassicalManipulateObject( obj);
+        ClassicalManipulateObject( obj);
+    },
+    initialize_overwrite : function() {
+        var obj = new Object();
+        ManipulateObject( obj);
+        ManipulateObject( obj);
+    },
+    toggle_light : function() {
+        info( "toggle_light", ToggleLight());
+    },
+    test_properties_of_toggle_light : function() {
+        info( "toggle_light", ToggleLight());
+        info( "toogle_light_called_directly", ToggleLight.curr());
+    },
+};
+</script>
+    <div id="unittestoutput"></div>
+    <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+  </body>
+</html>
+
+

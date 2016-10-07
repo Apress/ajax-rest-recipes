@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <title>Validation Testing</title>
+        <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+        <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+        <script language="javascript" src="/scripts/jsunit/jsUnitCore.js"></script>
+    </head>
+    <body>
+<script language="javascript">
+// *******************************************************
+
+// *******************************************************
+var testWindow = "";
+
+Ops.delegate( window, "onload", function() {
+                 testWindow = document.getElementById("toTest").contentWindow;
+                 AssignParentChildCallbacks( testWindow);
+             });
+
+var testsToRun = {
+    getState : function() {
+        var form = testWindow.document.getElementById( "calculator");
+        form.Number1.value = 1;
+        form.Number2.value = 2;
+        
+        var obj = testWindow.GetState( "calculator");
+        info( "getState{obj}", Ops.singleSerialize( obj));
+        assertEquals( 1, obj.Number1);
+        assertEquals( 2, obj.Number2);
+    },
+    getStateFail : function() {
+        var form = testWindow.document.getElementById( "calculator");
+        form.Number1.value = "hello world";
+        form.Number2.value = 0;
+        try {
+            var obj = testWindow.GetState( "calculator");
+        }
+        catch( e) {
+            info( "getStateFail", "Expected exception (" + e.toString() + ")");
+        }
+        
+        form.Number1.value = 0;
+        form.Number2.value = "hello world";
+        try {
+            var obj = testWindow.GetState( "calculator");
+        }
+        catch( e) {
+            info( "getStateFail", "Expected exception (" + e.toString() + ")");
+        }
+    },
+    setState : function() {
+        var obj = new Object();
+        obj.Number1 = 1;
+        obj.Number2 = 2;
+        testWindow.SetState( "calculator", obj);
+        
+        var form = testWindow.document.getElementById( "calculator");
+        assertEquals( "1", form.Number1.value);
+        assertEquals( "2", form.Number2.value);
+    },
+};
+</script>
+        <table>
+            <tr>
+                <td><div id="unittestoutput"></div></td>
+                <td><iframe src="/ajaxrecipes/dhtml/stateful" id="toTest" width="480" height="200"></iframe></td>
+            </tr>
+        </table>
+        <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+    </body>
+</html>
+
+

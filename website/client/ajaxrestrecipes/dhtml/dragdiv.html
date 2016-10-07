@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Drag DIV</title>
+    </head>
+    <script type="text/javascript" src="/scripts/jaxson/dom-drag.js"></script>
+<style type="text/css">
+.dialogbox {
+    background-color: cyan;
+    border: 1px solid black;
+    color: black;
+    padding: 0px;
+    position: absolute;
+}
+
+.dialogtitle {
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    padding: 2px 2px 2px 2px;
+}
+
+.dialogcontent {
+    padding: 2px;
+}
+
+
+</style>
+<script type="text/javascript">
+function Init() {
+    Drag.init(document.getElementById("example"));
+}
+</script>
+    <body onload="Init()">
+        <div id="example" class="dialogbox" style="left:100px;top:100px;">
+            <div class="dialogtitle" style="width:200px;"><center>Drag Me</center></div>
+            <div class="dialogcontent" style="width:200px;"><a href="">link</a> any content</div>
+        </div>
+    </body>
+</html>
+

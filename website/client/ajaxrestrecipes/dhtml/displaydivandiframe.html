@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>Display Content Using Div</title>
+  </head>
+  <body>
+    <div>First Content</div>
+    <div>Second Content</div>
+    <hr />
+    <span>First Content</span>
+    <span>Second Content</span>
+    <hr />
+    <p><iframe width="200" height="200" src="/ajaxrecipes/dhtml/otherdisplay.html"></iframe></p>
+    <hr />
+<script language="JavaScript" type="text/javascript">
+function ReassignSrc() {
+    document.getElementById( "newassign").src = "/ajaxrecipes/dhtml/percentagelayout.html";
+}
+function GetSrc() {
+    document.getElementById( "gensrc").innerHTML = document.getElementById( "newassign").contentDocument.body.innerHTML;
+}
+</script>
+    <p><iframe id="newassign" width="200" height="200" src="/sos"></iframe></p>
+    <div id="gensrc"></div>
+    <input type="button" value="Surf To URL" onclick="ReassignSrc()" />
+    <input type="button" value="Transfer Source" onclick="GetSrc()" />
+  </body>
+</html>
+

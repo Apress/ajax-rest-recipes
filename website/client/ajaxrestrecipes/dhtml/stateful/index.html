@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title>Validation Example</title>
+        <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+        <script language="JavaScript" src="/scripts/jaxson/converter.js"></script>
+        <script language="JavaScript" src="/scripts/jaxson/commonmorphing.js"></script>
+    </head>
+<script language="JavaScript" type="text/javascript">
+var representations = {
+    calculator : {
+    }
+};
+
+function GetState() {
+    return RepresentationManager.getState( "calculator");
+}
+
+function SetState( obj) {
+
+}
+
+function DoAddition() {
+    var element = document.getElementById("calculator");
+    
+    var request = new Asynchronous( {
+                                       onComplete : function( xmlhttp) {
+                                           
+                                       }
+                                   });
+    request.post( "/services/ajaxrecipes/validation",
+                 ConvertToJSON( representationManager.getState(element)));
+}
+
+</script>
+    <body>
+        <form id="calculator">
+            <table border="1">
+                <tr>
+                    <td>Number 1 <input type="text" name="Number1" /></td>
+                </tr>
+                <tr>
+                    <td>Number 2 <input type="text" name="Number2" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button" value="Add the two numbers" onclick=""/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
+

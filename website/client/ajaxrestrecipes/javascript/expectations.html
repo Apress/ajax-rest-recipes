@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <title>Expectations</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+    <script language="javascript" src="/scripts/jsunit/jsUnitCore.js"></script>
+  </head>
+  <body>
+<script language="javascript">
+// Setup the output generator
+
+// *******************************************************
+function AddTwoNumbers(num1, num2) {
+    return num1 + num2;
+}
+
+function AddTwoNumbersDisplayTypes( num1, num2) {
+    var val1 = parseInt( num1);
+    var val2 = parseInt( num2);
+    
+    if( isNaN( val1) || isNaN( val2)) {
+        throw new Error( "num1, (and/or) num2 are neither a number or string");
+    }
+    info( "AddTwoNumbersDisplayTypes", typeof( num1));
+    info( "AddTwoNumbersDisplayTypes", typeof( num2));
+    return val1 + val2;
+}
+
+function AddTwoNumbersExpectation( num1, num2) {
+    if( typeof( num1) == "string") {
+        num1 = parseInt( num1);
+    }
+    else if( typeof( num1) != "number") {
+        throw new Error( "num1 must be either a string buffer or a number, is (" + typeof( num1) + ")");
+    }
+    if( typeof( num2) == "string") {
+        num2 = parseInt( num2);
+    }
+    else if( typeof( num2) != "number") {
+        throw new Error( "num1 must be either a string buffer or a number, is (" + typeof( num1) + ")");
+    }
+    return num1 + num2;
+}
+
+// *******************************************************
+
+var testsToRun = {
+    add_function : function() {
+        assertEquals( 4, AddTwoNumbers(2, 2));
+    },
+    add_display_types : function() {
+        assertEquals( 4, AddTwoNumbersDisplayTypes( 2, 2));
+        assertEquals( 4, AddTwoNumbersDisplayTypes( "2", 2));
+        try {
+            AddTwoNumbersDisplayTypes( new Object(), 2);
+            testManager.failed();
+            return;
+        }
+        catch( e) {
+            info( "classical_add_display_types", "Expected error (" + e.toString() + ")");
+        }
+    },
+    add_expectations : function() {
+        assertEquals( 4, AddTwoNumbersExpectation( 2, 2));
+        assertEquals( 4, AddTwoNumbersExpectation( "2", 2));
+        try {
+            AddTwoNumbersExpectation( new Object(), 2);
+            testManager.failed();
+            return;
+        }
+        catch( e) {
+            info( "classical_add_display_types", "Expected error (" + e.toString() + ")");
+        }
+    }
+};
+</script>
+    <div id="unittestoutput"></div>
+    <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+  </body>
+</html>
+
+

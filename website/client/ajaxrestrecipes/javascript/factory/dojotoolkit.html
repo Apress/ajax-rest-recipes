@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <title>Sample Page</title>
+    <script language="JavaScript" src="/scripts/dojo/dojo.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+function Get1() {
+    dojo.io.bind({
+                     url: "/ajaxpatterns/asynchronous/serverhang",
+                     load: function(type, data, evt) {
+                         // type is a Dojo toolkit specific thing and references the event
+                         document.getElementById('httpcode').innerHTML = evt.status;
+                         document.getElementById('httpstatus').innerHTML = evt.statusText;
+                         document.getElementById('result').innerHTML = data;
+                         document.getElementById('xmlresult').innerHTML = evt.responseXML;
+                     },
+                     mimetype: "text/html"
+                 });
+}
+
+function Get2() {
+    dojo.io.bind({
+                     url: "/ajaxpatterns/asynchronous/books.xml",
+                     load: function(type, data, evt) {
+                         document.getElementById('httpcode2').innerHTML = evt.status;
+                         document.getElementById('httpstatus2').innerHTML = evt.statusText;
+                         document.getElementById('result2').innerHTML = data;
+                         document.getElementById('xmlresult2').innerHTML = evt.responseXML;
+                     },
+                     mimetype: "text/html"
+                 });
+}
+
+</script>
+  </head>
+  <body>
+    This example illustrates how to use the DojoToolkit to make an asynchronous request. The Dojotoolkit primarily uses asynchronous callbacks<br />&nbsp;<br />
+    
+    <button onclick="Get1()">Get the hanging content (10s)</button>
+    <button onclick="Get2()">Get immediate content</button>
+    <p><table border="1">
+        <tr><td>Document</td>
+          <td><span id="httpcode">No Http Code</span></td>
+          <td><span id="httpstatus">No Http Status</span></td>
+          <td><span id="result">No Result</span></td>
+          <td><span id="xmlresult">No XML Result</span></td></tr>
+        <tr><td>Document</td>
+          <td><span id="httpcode2">No Http Code</span></td>
+          <td><span id="httpstatus2">No Http Status</span></td>
+          <td><span id="result2">No Result</span></td>
+          <td><span id="xmlresult2">No XML Result</span></td></tr>
+      </table></p>
+  </body>
+</html>
+

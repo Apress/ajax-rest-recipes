@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>Navigation Example</title>
+  </head>
+<script language="JavaScript" type="text/javascript">
+function MouseMove(evt) {
+    evt = (evt) ? evt: ((event) ? event : null);
+    //x = evt.clientX;
+    //y = evt.clientY;
+    if( evt.layerX) {
+        x = evt.layerX;
+        y = evt.layerY;
+    }
+    else if( evt.offsetX) {
+        x = evt.offsetX;
+        y = evt.offsetY;
+    }
+    
+    element = document.getElementById( "mouse");
+    document.getElementById( "x").innerHTML = x ;
+    document.getElementById( "y").innerHTML = y ;
+    
+}
+</script>
+  <body>
+      <hr />
+      Hello
+      <div id="mouse" onmousemove="MouseMove(event)" style="position:absolute;top:100px;left:100px;height:100px;width:100px;background-color: blue;">
+          hello world
+      </div>
+      <hr />
+      X (<span id="x"></span>) Y (<span id="y"></span>)
+  </body>
+</html>
+

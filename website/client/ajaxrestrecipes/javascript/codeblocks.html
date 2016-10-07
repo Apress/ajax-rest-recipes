@@ -1,0 +1,135 @@
+<html>
+  <head>
+    <title>Implementing Codeblocks</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+    <script language="javascript" src="/scripts/jaxson/jsUnitCore.js"></script>
+  </head>
+  <body>
+<script language="javascript">
+// *******************************************************
+function GenerateSquaredSeries(lastValue) {
+    var array = new Array();
+    for (var c1 = 0; c1 < lastValue; c1 ++) {
+        array.push(c1 * c1);
+    }
+    return array;
+}
+
+function GenerateSeries(lastValue, callback) {
+    var array = new Array();
+    for (var c1 = 0; c1 < lastValue; c1 ++) {
+        callback(array, c1);
+    }
+    return array;
+}
+
+function ExampleSeriesSquare() {
+    var array = GenerateSeries(10, function(array, value) {
+                                   array.push(c1 * c1);
+                               });
+}
+
+function GenerateSeriesMod(lastValue, callback) {
+    for (var c1 = 0; c1 < lastValue; c1 ++) {
+        callback(c1);
+    }
+}
+
+function ExampleSeriesSquareMod() {
+    var array = new Array();
+    GenerateSeries(10, function(value) {
+                       array.push(c1 * c1);
+                   });
+}
+
+// *******************************************************
+function IterateArray(array, closure) {
+    for( item in array) {
+        closure(item);
+    }
+}
+
+function CustomList() {
+    this.array = new Array();
+}
+
+CustomList.prototype.iterate = function(callback) {
+    for( item in this.array) {
+        callback(item);
+    }
+}
+CustomList.prototype.addItems = function() {
+    for (var c1 = 0; c1 < arguments.length; c1 ++) {
+        this.array.push(arguments[c1]);
+    }
+}
+
+function StockTracker(ticker, callback) {
+    if (ticker == "YHOO") {
+        callback("Yahoo", 23, -1);
+    }
+}
+
+function StockHistory(ticker, startDate, endDate, closure) {
+    if (ticker == "YHOO") {
+        closure("Yahoo", "June 1", 23, -1);
+        closure("Yahoo", "June 2", 21, 2);
+    }
+}
+
+function StockTracerTraditional(ticker) {
+    if (ticker == "YHOO") {
+        var obj = new Object();
+        this.company = "Yahoo";
+        this.close = 23;
+        this.change = -1;
+        return obj;
+    }
+    return null;
+}
+
+function CallerStockTracer() {
+    var obj = StockTracerTraditional("YHOO");
+    if (obj != null) {
+        info("return_value", "Company=" + obj.company +
+             " close=" + obj.close + " change=" + obj.change);
+    }
+}
+// *******************************************************
+
+var testsToRun = {
+    simple_iterate : function() {
+        var array = new Array();
+        array.push("hello");
+        array.push("world");
+        IterateArray(array, function(item) {
+                         info("simple_iterate", item);
+                     });
+    },
+    class_list_iterate : function() {
+        var list = new CustomList();
+        list.addItems("hello", "world");
+        list.iterate(function(item) {
+                         info("class_list_iterate", item);
+                     });
+    },
+    return_value : function() {
+        StockTracker("YHOO", function(company, close, change) {
+                         // Do something with the data
+                         info("return_value", "Company=" + company + " close=" + close + " change=" + change);
+                     });
+    },
+    multiple_return_value : function() {
+        StockHistory("YHOO", "start", "end", function(company, date, close, change) {
+                         info("return_value", "Company=" + company + " date=" + date + " close=" + close + " change=" + change);
+                     });
+    }
+};
+</script>
+    <div id="unittestoutput"></div>
+    <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+  </body>
+</html>
+
+

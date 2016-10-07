@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>Shopping cart</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/communications.js"></script>
+  </head>
+<script type="text/javascript">
+
+var unique = new UniqueURL( "/pyservices/shopping/cart/getone");
+unique.haveIt = function() {
+    document.getElementById( "status").innerHTML = "Have shopping cart";
+    createCookie( "shoppingcart", unique.uniqueURL, 2);
+}
+
+function Initialize() {
+    var url = readCookie( "shoppingcart");
+    if( url == null || url.length == 0) {
+        unique.getIt();
+    }
+    else {
+        document.getElementById( "status").innerHTML = "already have a shopping cart";
+        unique.uniqueURL = url;
+    }
+}
+
+globals.errorHandler = function( e) {
+    document.getElementById( "error").innerHTML = document.getElementById( "error").innerHTML + "<br />" + e.toString();
+}
+globals.info = function( msg) {
+    document.getElementById( "error").innerHTML = document.getElementById( "error").innerHTML + "<br />" + msg;
+}
+
+function CustomerDetails() {
+    var obj = new Object();
+    obj.data = "address=...";
+    obj.length = obj.data.length;
+    obj.mimetype = "application/x-www-form-urlencoded";
+    return obj;
+}
+
+function BuyItems() {
+    if( unique.uniqueURL != null) {
+        var asynchronous = FactoryHttp.getAsynchronous();
+        asynchronous.settings = {
+            onComplete : function(xmlhttp) {
+                // Process the data ...
+                unique.uniqueURL = null;
+                unique.getIt();
+                eraseCookie( "shoppingcart");
+            }
+        }
+        asynchronous.post( unique.uniqueURL, CustomerDetails());
+    }
+}
+</script>
+  
+  <body onload="Initialize()">
+    <input type="button" value="Buy it" onclick="BuyItems()" />
+    <div id="status"></div>
+    <div id="error"></div>
+  </body>
+</html>
+

@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <title>Implementing Delegates</title>
+        <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+        <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+        <script language="javascript" src="/scripts/jaxson/jsUnitCore.js"></script>
+    </head>
+    <body>
+<script language="javascript">
+// *******************************************************
+
+function DefinedClass() {
+}
+
+function FunctionNoParam() {
+    
+}
+
+function FunctionOneParam(param) {
+    info("FunctionTwoParam", "param=" + param);
+}
+
+function FunctionTwoParam(param1, param2) {
+    info("FunctionTwoParam", "param1=" + param1 + " param2=" + param2);
+}
+
+function FunctionThreeParam(param1, param2, param3) {
+    
+}
+
+function ParamCount(func) {
+    var funcMatch = /function\s.*\((.*)\)/;
+    var result = func.toString().match(funcMatch);
+    if (result != null) {
+        var buffer = result[1];
+        var paramCount = 0;
+        for (var c1 = 0; c1 < buffer.length; c1 ++) {
+            if (buffer.charAt(c1) == ',') {
+                paramCount ++;
+            }
+        }
+        if (buffer.length == 0) {
+            return 0;
+        }
+        else {
+            return paramCount + 1;
+        }
+    }
+    return 0;
+}
+
+// *******************************************************
+
+var testsToRun = {
+    last_function : function() {
+        var cls = new Object();
+        cls["method"] = function() {
+            info("method1", "hello");
+        }
+        cls.method();
+        cls["method"] = function() {
+            info("method2", "hello");
+        }
+        cls.method();
+    },
+    param_count : function() {
+        info("param_count{FunctionNoParam}", ParamCount(FunctionNoParam));
+        assertEquals(0, ParamCount(FunctionNoParam));
+        info("param_count{FunctionOneParam}", ParamCount(FunctionOneParam));
+        assertEquals(1, ParamCount(FunctionOneParam));
+        info("param_count{FunctionTwoParam}", ParamCount(FunctionTwoParam));
+        assertEquals(2, ParamCount(FunctionTwoParam));
+        info("param_count{FunctionThreeParam}", ParamCount(FunctionThreeParam));
+        assertEquals(3, ParamCount(FunctionThreeParam));
+        var func = function(param1, param2) { }
+        info("param_count{func}", ParamCount(func));
+        assertEquals(2, ParamCount(func));
+    },
+    overloaded_methods : function() {
+        var cls = new DefinedClass();
+        cls.value = "original";
+        OpsValue.overloaded(cls, "example", FunctionOneParam);
+        OpsValue.overloaded(cls, "exmaple", FunctionTwoParam);
+        cls.example("one param example");
+        cls.example("first param", "second param");
+    },
+};
+</script>
+        <div id="unittestoutput"></div>
+        <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+    </body>
+</html>
+
+

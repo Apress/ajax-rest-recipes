@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <title>Parameterless Functions</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+    <script language="javascript" src="/scripts/jaxson/jsUnitCore.js"></script>
+  </head>
+  <body>
+<script language="javascript">
+// Setup the output generator
+
+// *******************************************************
+function AddTwoNumbers(num1, num2) {
+    return num1 + num2;
+}
+
+function NoParamsAddTwoNumbers() {
+    return arguments[0] + arguments[1];
+}
+
+function TooManyParametersNotEnoughArguments(param1, param2, param3) {
+    info("TooManyParametersNotEnoughArguments", typeof(param3));
+    assertEquals("undefined", typeof(param3));
+    assertEquals(2, arguments.length);
+}
+
+function MyClass() {
+    MyClass.callMe = function() {
+        info( "hello world");
+    }
+}
+
+MyClass.prototype.callMe = function() {
+    info( "hello world");
+}
+
+var Singleton = {
+    value : 10,
+    callMe : function() {
+        info( "hello world from singleton");
+    }
+}
+// *******************************************************
+
+var testsToRun = {
+    functionTestNewvsFunction: function() {
+        var cls = new MyClass();
+        
+        var cls2 = MyClass;
+        cls2.callMe();
+        Singleton.callMe();
+    },
+    function_parameter : function() {
+        assertEquals(4, AddTwoNumbers(2, 2));
+        assertEquals(4, AddTwoNumbers(2, "2"));
+        testManager.success();
+    },
+    function_no_parameters : function() {
+        assertEquals(4, NoParamsAddTwoNumbers(2, 2));
+        testManager.success();
+    },
+    function_not_enough_arguments : function() {
+        TooManyParametersNotEnoughArguments(1, 2);
+        testManager.success();
+    }
+};
+</script>
+    <div id="unittestoutput"></div>
+    <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+  </body>
+</html>
+
+

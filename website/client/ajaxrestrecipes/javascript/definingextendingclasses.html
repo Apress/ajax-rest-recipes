@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <title>Defining and Extending Classes</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+    <script language="javascript" src="/scripts/jaxson/jsUnitCore.js"></script>
+  </head>
+  <body>
+<script language="javascript">
+// *******************************************************
+function CreateClassInstance() {
+    var inst = function() {
+        inst.instantiated = 10;
+        inst.method = function() {
+            inst.instantiated = 20;
+        }
+    }
+    inst();
+    return inst;
+}
+// *******************************************************
+
+function CreateRealClassInstance() {
+    var inst = function() {
+        this.instantiated = 10;
+        this.method = function() {
+            this.instantiated = 20;
+        }
+    }
+    return new inst();
+}
+// *******************************************************
+
+var testsToRun = {
+    // Start JavaScript code for test cases here
+    function_are_classes : function() {
+        var cls1 = CreateClassInstance();
+        info("function_are_classes", cls1);
+        cls1.value = 10;
+        assertEquals(10, cls1.instantiated);
+        cls1.method();
+        assertEquals(20, cls1.instantiated);
+        var cls2 = CreateClassInstance();
+        assertEquals("undefined",  typeof(cls2.value));
+    },
+    function_classes_generates_error : function() {
+        var cls = CreateClassInstance();
+        cls.method2 = function() {
+            inst.instantiated = 40;
+        }
+        try {
+            cls.method2();
+            testManager.failed();
+        }
+        catch( e) {
+            info("functions_classes_generates_error", "Expected exception (" + e.toString() + ")");
+        }
+    },
+    function_instantiates_real_class : function() {
+        var cls = CreateRealClassInstance();
+        cls.method2 = function() {
+            this.instantiated = 40;
+        }
+        assertEquals(10, cls.instantiated);
+        cls.method2();
+        assertEquals(40, cls.instantiated);
+    },
+    // End JavaScript code for test cases
+};
+
+</script>
+    <div id="unittestoutput"></div>
+    <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+  </body>
+</html>
+
+

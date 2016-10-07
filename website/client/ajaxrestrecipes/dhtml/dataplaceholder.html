@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Data Placeholder Example</title>
+    </head>
+<script language="JavaScript" type="text/javascript">
+function Replace() {
+    document.getElementById("word").innerHTML = document.getElementById("toreplace").value;
+    document.getElementById("word").style.visibility = "visible";
+}
+function HideIt() {
+    document.getElementById("hidden").style.visibility = "hidden";
+    document.getElementById("display").style.display = "none";
+    document.getElementById( "escaped").innerHTML = "<2 > 1</hello>";
+    document.getElementById( "valueescaped").value = document.getElementById( "escaped").innerHTML;
+    document.getElementById( "escaped2").innerHTML = "<!-- <2 > 1</hello>-->";
+    document.getElementById( "valueescaped2").value = document.getElementById( "escaped2").innerHTML;
+}
+</script>
+    
+    <body onload="HideIt()">
+        <p>
+            <input type="text" size="20" id="toreplace" />&nbsp;<input type="button" value="Replace" onclick="Replace()" />
+        </p>
+        <p>This is a runalong text that contains a <span id="word">word</span>that can be replaced</p>
+        <hr />
+        Some text with embedded (<div style="display:inline"><i>inline div element</i></div>).
+        and more text with embedded (<span style="display:block"><i>block span element</i></span>).
+        <hr />
+        (<span id="hidden" style="visibility:hidden">empty space</span>)
+        (<span id="display" style="display:none">empty space</span>)
+        <hr />
+        (<textarea id="data" style="display:none">Hello world</textarea>)
+        (<span id="escaped"></span>)
+        (<textarea id="valueescaped"></textarea>)
+        (<span id="escaped2"></span>)
+        (<textarea id="valueescaped2"></textarea>)
+    </body>
+</html>
+

@@ -1,0 +1,118 @@
+<html>
+  <head>
+    <title>Convention over Configuration</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+    <script language="javascript" src="/scripts/jaxson/jsUnitCore.js"></script>
+    <script language="javascript" src="/scripts/prototype/dist/prototype.js"></script>
+    <script language="javascript" src="/scripts/json.js"></script>
+  </head>
+  <body>
+<script language="javascript">
+// *******************************************************
+function DefinedClass() {
+}
+DefinedClass.prototype.defined1 = function() { return; }
+DefinedClass.prototype.defined2 = function() { return; }
+
+Extensions = {
+    extend1 : function() { },
+    extend2 : function() { }
+}
+
+// *******************************************************
+function AddTwoNumbers(num1, num2) {
+    return num1 + num2;
+}
+
+MyExtensions = {
+    test : function(func, tstValue) {
+        assertEquals(tstValue, func.value);
+    }
+}
+
+function GetExtensionFunctionality() {
+    var retval = {
+        test : function(tstValue) {
+            assertEquals(tstValue, this.test.value);
+        }};
+    retval.test.value = 10;
+    return retval;
+}
+
+// *******************************************************
+
+var testsToRun = {
+    instantiate_and_extend : function() {
+        var cls = new DefinedClass();
+        cls.extend1 = function() { }
+        cls.extend1();
+    },
+    prototype_mixin : function() {
+        var cls = new DefinedClass();
+        if (MyExtensions.test.value) {
+            testManager.failed();
+        }
+        Object.extend(cls, MyExtensions);
+        cls.test.value = 3;
+        // Changing cls should not cause a change in MyExtensions
+        assertEquals( MyExtensions.test.value, cls.test.value);
+        cls.test.value = 10;
+        assertEquals( MyExtensions.test.value, cls.test.value);
+    },
+    prototype_inconsistent_mixin : function() {
+        var cls1 = new DefinedClass();
+        var cls2 = new DefinedClass();
+        
+        Object.extend(cls1, GetExtensionFunctionality());
+        Object.extend(cls2, GetExtensionFunctionality());
+        
+        cls1.test.value = 3;
+        cls2.test.value = 10;
+        info( "prototype_inconsistent_mixin", "cls1.test.value=" + cls1.test.value + " cls2.test.value=" + cls2.test.value);
+        // Used the same extend, but with different values
+        assertNotEquals( cls1.test.value, cls2.test.value);
+    },
+    reference_mixin : function() {
+        var cls = new DefinedClass();
+        MyExtensions.test.value = 10;
+        OpsReference.mixin(cls, MyExtensions);
+        assertEquals( MyExtensions.test.value, cls.test.value);
+        MyExtensions.test.value = 10;
+        assertEquals( MyExtensions.test.value, cls.test.value);
+    },
+    copy_mixin : function() {
+        var cls = new DefinedClass();
+        info( "copy_mixin", JSON.stringify( cls));
+        info( "copy_mixin", Serializer.toSource( cls));
+        OpsValue.mixin(cls, MyExtensions);
+        info( "copy_mixin", JSON.stringify( cls));
+        info( "copy_mixin", cls.toSource());
+        cls.test(3);
+        try {
+            MyExtensions.embedded.value = 10;
+            cls.test(10);
+            testManager.failed();
+        }
+        catch( e) {
+            if (e.jsUnitMessage) {
+                info("copy_mixin", "Expected exception (" + e.jsUnitMessage + ")");
+            }
+        }
+    },
+    method_property_test : function() {
+        var cls1 = new DefinedClass();
+        var cls2 = new DefinedClass();
+        
+        cls1.defined1.value = 10;
+        // Illustrates that defined1 is a shared function instance
+        assertEquals(10, cls2.defined1.value);
+    }
+};
+</script>
+    <div id="unittestoutput"></div>
+    <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+  </body>
+</html>
+
+

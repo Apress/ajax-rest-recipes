@@ -1,0 +1,108 @@
+<html>
+  <head>
+    <title>Trader Panel</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/communications.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/uimorphing.js"></script>
+    <script language="JavaScript" src="/scripts/json.js"></script>
+  </head>
+<script type="text/javascript">
+// **********************************************
+var loggerWindow;
+
+function OpenLogWindow() {
+    var url = "/trader/logger.html";
+    loggerWindow = window.open(url,'loggerwindow','height=520,width=620');
+}
+
+window.onerror = function (msg, url, lno) {
+    if( loggerWindow.YAHOO) {
+        loggerWindow.YAHOO.log(msg + " " + url + " " + lno, "error");
+        
+    }
+}
+
+globals.errorHandler = function( e) {
+    if( loggerWindow.YAHOO) {
+        loggerWindow.YAHOO.log(e.toString(), "error");
+    }
+}
+globals.info = function( section, msg) {
+    if( loggerWindow.YAHOO) {
+        loggerWindow.YAHOO.log(section + ":" + msg, "info");
+    }
+}
+// **********************************************
+
+function Initialize() {
+    OpenLogWindow();
+    DynamicIterator.initialize("display", "listElements");
+}
+
+DynamicIterator.getMoreRootElements = function( direction) {
+    if( direction == 0) {
+        var asynchronous = FactoryHttp.getAsynchronous();
+        asynchronous.settings = {
+            onComplete : function(xmlhttp) {
+                var arrTickers = new Array();
+                var tickers = JSON.parse( xmlhttp.responseText);
+                for( var c1 = 0; c1 < tickers.length; c1 ++) {
+                    arrTickers.push( { text : tickers[ c1],
+                                        url : "/ntservices/Devspace.Trader/Database/Tickers/" + tickers[ c1] + "/Close"});
+                }
+                DynamicIterator.associateElements( arrTickers);
+            }
+        }
+        asynchronous.get("/ntservices/Devspace.Trader/Database/Tickers");
+    }
+}
+
+DynamicIterator.expandElement = function( elem) {
+    elem.style.fontSize = 30;
+}
+
+DynamicIterator.shrinkElement = function( elem) {
+    elem.style.fontSize = 12;
+}
+
+DynamicIterator.fetch = function( refElemInfo, isActivate) {
+    if( !isActivate) {
+        globals.info( "DynamicIterate.fetch", "Pre-fetching URL " + refElemInfo.url);
+    }
+    else {
+        globals.info( "DynamicIterate.fetch", "Fetching URL " + refElemInfo.url);
+    }
+}
+
+window.onresize = function() {
+    DynamicIterator.doLayout();
+}
+
+
+</script>
+  
+  <body onload="Initialize()">
+    <table>
+      <tr id="listElements">
+        <td onmouseover="DynamicIterator.startIteration( -1)" onmouseout="DynamicIterator.stopIteration()">
+          <img height="50" width="70" src="/images/left.jpg"/>
+        </td>
+        <td onmouseover="DynamicIterator.highlightItem(this)" id="1" onclick="DynamicIterator.activateItem( this)"></td>
+        <td onmouseover="DynamicIterator.highlightItem(this)" id="2" onclick="DynamicIterator.activateItem( this)"></td>
+        <td onmouseover="DynamicIterator.highlightItem(this)" id="3" onclick="DynamicIterator.activateItem( this)"></td>
+        <td onmouseover="DynamicIterator.highlightItem(this)" id="4" onclick="DynamicIterator.activateItem( this)"></td>
+        <td onmouseover="DynamicIterator.highlightItem(this)" id="5" onclick="DynamicIterator.activateItem( this)"></td>
+        <td onmouseover="DynamicIterator.highlightItem(this)" id="6" onclick="DynamicIterator.activateItem( this)"></td>
+        <td onmouseover="DynamicIterator.highlightItem(this)" id="7" onclick="DynamicIterator.activateItem( this)"></td>
+        <td onmouseover="DynamicIterator.highlightItem(this)" id="8" onclick="DynamicIterator.activateItem( this)"></td>
+        <td onmouseover="DynamicIterator.highlightItem(this)" id="9" onclick="DynamicIterator.activateItem( this)"></td>
+        <td onmouseover="DynamicIterator.highlightItem(this)" id="10" onclick="DynamicIterator.activateItem( this)"></td>
+        <td onmouseover="DynamicIterator.startIteration( 1)" onmouseout="DynamicIterator.stopIteration()">
+          <img height="50" width="70" src="/images/right.jpg"/>
+        </td>
+      </tr>
+    </table>
+    <iframe id="display" style="top:100px;left:0px;width:400px;height:500px;position:absolute" src="displayticker.html"></iframe>
+  </body>
+</html>
+

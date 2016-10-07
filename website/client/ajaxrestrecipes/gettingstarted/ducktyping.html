@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title>Prototype-based Programming</title>
+<script language="JavaScript" type="text/javascript">
+
+function Variation1() {
+    document.getElementById( "output").innerHTML = "Ran Variation 1";
+}
+
+function Variation2() {
+    document.getElementById( "output").innerHTML = "Ran Variation 2";
+}
+
+var obj = new Object();
+
+function RunVariation() {
+    obj.runIt();
+}
+
+</script>
+</head>
+<body>
+    <input type="button" value="Variation 1" onclick="obj.runIt = Variation1; RunVariation()" />
+    <input type="button" value="Variation 2" onclick="obj.runIt = Variation2; RunVariation()" /><br/>
+    <div id="output">Nothing yet</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <title>Value Types Vs Reference Types</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+    <script language="javascript" src="/scripts/jsunit/jsUnitCore.js"></script>
+  </head>
+  <body>
+<script language="javascript">
+// Setup the output generator
+function CallMeReference(toCall, value) {
+    return function() {
+        toCall(value);
+    }
+}
+
+function CallMeValue( toCall, value) {
+    return eval( "function() { var func = " + toCall.toString() + "; func( '" + value.toString() + "'); } ");
+}
+
+
+function Version1Reference() {
+    return CallMeReference( function( param) { info( "Ver 1 is (" + param + ")"); }, "hello world");
+}
+
+function Version2Reference() {
+    return CallMeReference( function( param) { info( "Ver 2 is (" + param + ")"); }, "hello world");
+}
+
+function Called( variable) {
+    info( "Variable (" + variable + ")");
+}
+
+// *******************************************************
+var testsToRun = {
+    run_reference_callme : function() {
+        var func = CallMeReference(
+            function( param) {
+                info( "param is (" + param + ")");
+            }, "hello world");
+        func();
+        info( func.toString());
+    },
+    run_reference_version_callme : function() {
+        var func = Version1Reference();
+        func();
+        info( func.toString());
+    },
+    run_value_callme : function() {
+        var func = CallMeValue( function( param) { info( "param is (" + param + ")"); }, "hello world");
+        func();
+        info( func.toString());
+    },
+    why_do_this_not_work : function( inputvar) {
+        var variable = 10;
+        window.setTimeout( "Called( variable)", 1000);
+    },
+    why_do_this_works : function() {
+        var variable = 10;
+        window.setTimeout( CallMeReference( Called, variable), 1000);
+    }
+};
+</script>
+    <div id="unittestoutput"></div>
+    <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+  </body>
+</html>
+
+

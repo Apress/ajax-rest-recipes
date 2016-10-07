@@ -1,0 +1,128 @@
+<html>
+  <head>
+    <title>Validation Example</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/converter.js"></script>
+  </head>
+<script language="JavaScript" type="text/javascript">
+
+function GetState(identifier, cb) {
+    if (identifier == "toadd") {
+        var form = document.getElementById("calculator");
+        document.getElementById("Number1Error").innerHTML = "";
+        document.getElementById("Number2Error").innerHTML = "";
+        var obj = new Object();
+        var didError = false;
+        try {
+            obj.Number1 = Converter.convertToInteger(form.Number1.value);
+        }
+        catch( e) {
+            didError = true;
+            document.getElementById("Number1Error").innerHTML = e.toString();
+            if (cb.error) {
+                cb.error({ section : "toadd", item: "Number1", error : e.toString()});
+            }
+        }
+        try {
+            obj.Number2 = Converter.convertToInteger(form.Number2.value);
+        }
+        catch( e) {
+            didError = true;
+            document.getElementById("Number2Error").innerHTML = e.toString();
+            if (cb.error) {
+                cb.error({section: "toadd", item: "Number2", error: e.toString()});
+            }
+        }
+        if (cb.state && !didError) {
+            cb.state({ section: "toadd", value : obj});
+        }
+    }
+    else if (identifier == "result") {
+        var element = Navigation.findChild("calculator", "result");
+        Navigation.findChild("calculator", "resulterror").innerHTML = "";
+        var obj = new Object();
+        
+        try {
+            obj.Result = Converter.convertToInteger(element.innerHTML);
+        }
+        catch( e) {
+            Navigation.findChild("calculator", "resulterror").innerHTML = e.toString();
+            if (cb.error) {
+                cb.error({section: "Result", item : "Result", error: e.toString()});
+            }
+            return;
+        }
+        if (cb.state) {
+            cb.state({ section : "result", value : obj});
+        }
+    }
+    else {
+        if (cb.error) {
+            cb.error({section: identifier,error: "State identifier (" + identifier + "does not exist"});
+        }
+    }
+}
+
+function SetState(identifier, obj, cb) {
+    if (identifier == "toadd") {
+        var form = document.getElementById("calculator");
+        document.getElementById("Number1Error").innerHTML = "";
+        document.getElementById("Number2Error").innerHTML = "";
+        if (typeof(obj.Number1) != "number") {
+            var buffer = "obj.Number1 expected a number, but is a " + typeof(obj.Number1);
+            document.getElementById("Number1Error").innerHTML = buffer;
+            if (typeof(cb) != "undefined" && cb.error) {
+                cb.error({ section: "toadd", identifier : "Number1", error : buffer});
+            }
+        }
+        if (typeof(obj.Number2) != "number") {
+            var buffer = "obj.Number2 expected a number, but is a " + typeof(obj.Number2);
+            document.getElementById("Number2Error").innerHTML = buffer;
+            if (typeof(cb) != "undefined" && cb.error) {
+                cb.error({ section: "toadd", identifier : "Number2", error : buffer});
+            }
+        }
+        form.Number1.value = obj.Number1;
+        form.Number2.value = obj.Number2;
+    }
+    else if (identifier == "result") {
+        var element = Navigation.findChild("calculator", "result");
+        if (typeof(obj.Result) != "number") {
+            var buffer = "obj.Result expected a number, but is a " + typeof(obj.Result);
+            Navigation.findChild("calculator", "resulterror").innerHTML = buffer;
+            if (typeof(cb) != "undefined" && cb.error) {
+                cb.error({ section: "result", identifier : "Result", error: buffer});
+            }
+        }
+        element.innerHTML = obj.Result;
+    }
+    else {
+        if (typeof(cb) != "undefined" && cb.error) {
+            cb.error({section: identifier,error: "State identifier (" + identifier + "does not exist"});
+        }
+    }
+}
+
+</script>
+  <body>
+<form id="calculator">
+  <table border="1">
+    <tr>
+      <td>Number 1</td><td><input type="text" name="Number1" /><br><span id="Number1Error"></span></td>
+    </tr>
+    <tr>
+      <td>Number 2</td><td><input type="text" name="Number2" /><br><span id="Number2Error"></span></td>
+    </tr>
+    <tr>
+      <td>Result</td><td><span id="result"></span><br><span id="resulterror"></span></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <center><input type="button" value="Add the two numbers" onclick=""/></center>
+      </td>
+    </tr>
+  </table>
+</form>
+  </body>
+</html>
+

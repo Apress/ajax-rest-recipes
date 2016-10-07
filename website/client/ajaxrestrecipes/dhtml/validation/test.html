@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <title>Validation Testing</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+    <script language="javascript" src="/scripts/jsunit/jsUnitCore.js"></script>
+  </head>
+  <body>
+<script language="javascript">
+// *******************************************************
+
+// *******************************************************
+var testWindow = "";
+
+Ops.delegate(window, "onload", function() {
+                 testWindow = document.getElementById("toTest").contentWindow;
+                 AssignParentChildCallbacks(testWindow);
+             });
+
+var testsToRun = {
+    getState : function() {
+        var form = testWindow.document.getElementById("calculator");
+        form.Number1.value = 1;
+        form.Number2.value = 2;
+        
+        var obj = testWindow.GetState("toadd",
+                                      { state : function(obj) {
+                                              info("getState{obj}", Ops.singleSerialize(obj.value));
+                                              assertEquals(1, obj.value.Number1);
+                                              assertEquals(2, obj.value.Number2);
+                                          }});
+    },
+    setState : function() {
+        var obj = new Object();
+        obj.Number1 = 1;
+        obj.Number2 = 2;
+        testWindow.SetState("toadd", obj);
+        
+        var form = testWindow.document.getElementById("calculator");
+        assertEquals("1", form.Number1.value);
+        assertEquals("2", form.Number2.value);
+    },
+    getStateGenerateError1 : function() {
+        var form = testWindow.document.getElementById("calculator");
+        form.Number1.value = "hello world";
+        form.Number2.value = 0;
+        testWindow.GetState("toadd", { });
+    },
+    getStateGenerateError2 : function() {
+        var form = testWindow.document.getElementById("calculator");
+        form.Number1.value = 0;
+        form.Number2.value = "hello world";
+        testWindow.GetState("toadd", { });
+    },
+    setStateError : function() {
+        var obj = new Object();
+        obj.Number1 = "hello";
+        obj.Number2 = "world";
+        testWindow.SetState("toadd", obj);
+    },
+    getStateResult : function() {
+        var element = testWindow.document.getElementById("result");
+        element.innerHTML = "1";
+        testWindow.GetState("result",
+                                      { state : function(obj) {
+                                              info("getStateResult{obj}", Ops.singleSerialize(obj.value));
+                                              assertEquals(1, obj.value.Result);
+                                          }});
+    },
+    setStateResult : function() {
+        var obj = new Object();
+        obj.Result = 10;
+        testWindow.SetState("result", obj);
+        var element = testWindow.document.getElementById("result");
+        assertEquals("10", element.innerHTML);
+    },
+    getStateResultError : function() {
+        var element = testWindow.document.getElementById("result");
+        element.innerHTML = "hello world";
+        testWindow.GetState( "result", {});
+    }
+};
+</script>
+    <table>
+      <tr>
+        <td><div id="unittestoutput"></div></td>
+        <td><iframe src="/ajaxrecipes/dhtml/validation" id="toTest" width="500" height="250"></iframe></td>
+      </tr>
+    </table>
+    <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+  </body>
+</html>
+
+

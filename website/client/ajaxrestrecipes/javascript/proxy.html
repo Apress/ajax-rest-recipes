@@ -1,0 +1,139 @@
+<html>
+  <head>
+    <title>Implementing a Proxy</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    <script language="javascript" src="/scripts/jaxson/jsUnitCore.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+  </head>
+  <body>
+<script language="javascript">
+// *******************************************************
+function DefinedClass() {
+    
+}
+
+DefinedClass.prototype.defined = function(tstvalue) {
+    globals.info("DefinedClass.defined", "parameter (" + tstvalue + ") arguments count (" + arguments.length + ")");
+    DefinedClass.prototype.defined.value = 10;
+    assertEquals(tstvalue, this.value);
+}
+
+
+// This is the generated code for the hand coded proxy function
+function Generated() {
+    var origFunc = function (tstvalue) {
+        globals.info("DefinedClass.defined", "parameter (" + tstvalue + ") arguments count (" + arguments.length + ")");
+        assertEquals(tstvalue, this.value);
+    }
+    var proxyFunc = function (tstValue, toCall, args) {
+        globals.info("proxyfunction", "parameter (" + tstValue + ") received arg count (" + arguments.length + ") original arg count (" + args.length + ")");
+        toCall.apply(this, args);
+    }
+    var args = new Array();
+    for (var c1 = 0; c1 < arguments.length; c1 ++) {
+        args.push(arguments[0]);
+    }
+    args.push(origFunc);
+    args.push(arguments);
+    proxyFunc.apply(this, args);
+}
+
+// Automated Generated with embedded in embedded as this is what is generated when
+// you first run the manual proxy generator and then the automatic proxy generator
+var AutomatedGenerate = function () {
+    var origFunc = (function () {
+        var origFunc = (function (tstvalue) {
+            globals.info("DefinedClass.defined", "parameter (" + tstvalue + ") arguments count (" + arguments.length + ")");
+            DefinedClass.prototype.defined.value = 10;
+            assertEquals(tstvalue, this.value);
+        });
+        var proxyFunc = (function (tstValue, toCall, args) {
+            globals.info("proxyfunction1", "parameter (" + tstValue + ") received arg count (" + arguments.length + ") original arg count (" + args.length + ")");
+            toCall.apply(this, args);
+        });
+        var args = new Array();
+        for (var c1 = 0; c1 < arguments.length; c1++) {
+            args.push(arguments[c1]);
+        }
+        args.push(origFunc);
+        args.push(arguments);
+        return proxyFunc.apply(this, args);
+    });
+    var proxyFunc = (function (tstValue, toCall, args) {
+        globals.info("proxyfunction2", "parameter (" + tstValue + ") received arg count (" + arguments.length + ") original arg count (" + args.length + ")");
+        toCall.apply(this, args);
+    });
+    var args = new Array(); for (var c1 = 0; c1 < arguments.length; c1++) {
+        args.push(arguments[0]);
+    }
+    args.push(origFunc);
+    args.push(arguments);
+    return proxyFunc.apply(this, args);
+}
+// *******************************************************
+
+var testsToRun = {
+    handcoded_proxy : function() {
+        var cls = new DefinedClass();
+        var proxyfunc = function(tstValue, toCall, args) {
+            globals.info("proxyfunction", "parameter (" + tstValue + ") received arg count (" + arguments.length + ") original arg count (" + args.length + ")");
+            toCall.apply(this, args);
+        }
+        var bufferStr = "var origFunc = " + cls.defined.toString() + ";";
+        bufferStr += "var proxyFunc = " + proxyfunc.toString() + ";";
+        bufferStr += "var args = new Array();";
+        bufferStr += "for( var c1 = 0; c1 < arguments.length; c1 ++) { args.push( arguments[ 0]); }";
+        bufferStr += "args.push( origFunc);"
+        bufferStr += "args.push( arguments);";
+        bufferStr += "proxyFunc.apply( this, args);";
+        DefinedClass.prototype.defined = new Function(bufferStr);
+        globals.info("handcoded_proxy",  DefinedClass.prototype.defined.toString());
+        cls.value = 10;
+        cls.defined(10);
+    },
+    automated_proxy_value : function() {
+        var cls = new DefinedClass();
+        globals.info("automated_proxy{cls.defined|before}", cls.defined.toString());
+        OpsValue.proxy(cls, "defined",
+                  function(tstValue, toCall, args) {
+                      globals.info("proxyfunction1", "parameter (" + tstValue + ") received arg count (" + arguments.length + ") original arg count (" + args.length + ")");
+                      toCall.apply(this, args);
+                  });
+        globals.info("automated_proxy{cls.defined|after}", cls.defined.toString());
+        cls.value = 10;
+        cls.defined(10);
+        OpsValue.proxy(cls, "defined",
+                  function(tstValue, toCall, args) {
+                      globals.info("proxyfunction2", "parameter (" + tstValue + ") received arg count (" + arguments.length + ") original arg count (" + args.length + ")");
+                      toCall.apply(this, args);
+                  });
+        globals.info("automated_proxy{cls.defined|after2}", cls.defined.toString());
+        cls.defined(10);
+    },
+    automated_proxy_ref : function() {
+        var cls = new DefinedClass();
+        globals.info("automated_proxy{cls.defined|before}", cls.defined.toString());
+        OpsReference.proxy(cls, "defined",
+                  function(tstValue, toCall, args) {
+                      globals.info("proxyfunction1", "parameter (" + tstValue + ") received arg count (" + arguments.length + ") original arg count (" + args + ")");
+                      toCall.apply(this, args);
+                  });
+        globals.info("automated_proxy{cls.defined|after}", cls.defined.toString());
+        cls.value = 10;
+        cls.defined(10);
+        OpsReference.proxy(cls, "defined",
+                  function(tstValue, toCall, args) {
+                      globals.info("proxyfunction2", "parameter (" + tstValue + ") received arg count (" + arguments.length + ") original arg count (" + args + ")");
+                      toCall.apply(this, args);
+                  });
+        globals.info("automated_proxy{cls.defined|after2}", cls.defined.toString());
+        cls.defined(10);
+    }
+};
+</script>
+    <div id="unittestoutput"></div>
+    <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+  </body>
+</html>
+
+

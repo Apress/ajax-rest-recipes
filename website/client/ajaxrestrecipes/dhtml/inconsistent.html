@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <title>Inconsistent .innerHTML</title>
+  </head>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    
+<script language="JavaScript" type="text/javascript">
+function DOMInserted() {
+    var element = document.createElement( "input");
+    element.type = "button";
+    element.value = "dynamically inserted";
+    element.onclick = function() { document.getElementById( "generated").innerHTML = "hello"; }
+    document.getElementById( "dynamicallyinserted").appendChild( element);
+    element = document.createElement( "input");
+    element.type = "text";
+    element.value = "dynamically inserted";
+    document.getElementById( "dynamicallyinserted").appendChild( element);
+    document.getElementById( "output").value = document.getElementById( "dynamicallyinserted").innerHTML;
+}
+function DOMInsertedFixed() {
+    var element = document.createElement( "input");
+    element.type = "button";
+    element.value = "dynamically inserted";
+    element.onclick = function() { document.getElementById( "generated").innerHTML = "hello"; }
+    document.getElementById( "dynamicallyinsertedfixed").appendChild( element);
+    element = document.createElement( "input");
+    element.type = "text";
+    element.value = "dynamically inserted";
+    document.getElementById( "dynamicallyinsertedfixed").appendChild( element);
+    document.getElementById( "outputfixed").value = Ops.htmlSerialize( document.getElementById( "dynamicallyinsertedfixed"));
+}
+function callme() {
+    document.getElementById( "generated").innerHTML = "hello";
+}
+</script>
+  <body>
+      <div id="dynamicallyinserted"><input type="button" value="hello" onclick="callme()" /></div>
+      <div id="dynamictextbox"></div>
+      <textarea id="output" cols="40" rows="10"></textarea><br />
+      <div id="generated"></div>
+      <input type="button" value="Dynamically Insert" onclick="DOMInserted()" />
+      <hr />
+      <div id="dynamicallyinsertedfixed"><input type="button" value="hello" onclick="callme()" /></div>
+      <div id="dynamictextboxfixed"></div>
+      <textarea id="outputfixed" cols="40" rows="10"></textarea><br />
+      <input type="button" value="Dynamically Insert Fixed" onclick="DOMInsertedFixed()" />
+      
+  </body>
+</html>
+

@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <title>DIV dialog essentials</title>
+    </head>
+<style type="text/css">
+.background {
+    background-color: cyan;
+}
+</style>
+<script type="text/javascript">
+function Init() {
+}
+function DisplayDiv( evt) {
+    evt = (evt) ? evt: ((event) ? event : null);
+    x = evt.clientX;
+    y = evt.clientY;
+    var element = document.getElementById( "display");
+    element.style.left = x;
+    element.style.top = y;
+    element.style.display = "block";
+}
+function DisplayDivFixed( evt) {
+    evt = (evt) ? evt: ((event) ? event : null);
+    if( evt.layerX) {
+        x = evt.layerX;
+        y = evt.layerY;
+    }
+    else if( evt.offsetX) {
+        x = evt.offsetX;
+        y = evt.offsetY;
+    }
+    var element = document.getElementById( "display");
+    element.style.left = x;
+    element.style.top = y;
+    element.style.display = "block";
+}
+
+function HideDiv() {
+    var element = document.getElementById( "display");
+    element.style.display = "none";
+}
+</script>
+    <body onload="Init()" onclick="DisplayDiv( event)">
+        <div id="display" class="background" style="width:100px;height:100px;position:absolute;display:none">
+            hello some text <a href="" onclick="HideDiv()">Hide me</a>
+        </div>
+        <!-- <div style="left:100px;top:100px;position:absolute" onclick="DisplayDiv( event)">
+            Hello world how are you doing...
+            <div id="display" class="background" style="width:100px;height:100px;position:absolute;display:none">
+                hello some text <a href="" onclick="HideDiv()">Close me</a>
+            </div>
+        </div>-->
+    </body>
+</html>
+

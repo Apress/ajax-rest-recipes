@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <title>Templating in JavaScript</title>
+        <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+        <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+        <script language="javascript" src="/scripts/jaxson/jsUnitCore.js"></script>
+    </head>
+    <body>
+<script language="javascript">
+// *******************************************************
+
+function DefinedClass() {
+}
+
+DefinedClass.prototype.addition = function(val1, val2) {
+    return val1 + val2;
+}
+
+function EmbeddedReplace() {
+    var func = __toCall;
+    info("Replace", "hello");
+    func();
+}
+
+// *******************************************************
+function GeneratedEmbeddedReplace() {
+    var func = (function () {
+        info("replaced in Replace", "hello");
+    });
+    info("Replace", "hello");
+    func();
+}
+
+// *******************************************************
+
+var testsToRun = {
+    // Not talked about in the book, but added for reference purposes
+    simple_generic : function() {
+        EmbeddedReplace = Generics.expand(EmbeddedReplace, { __toCall: function() {
+                                                  info("replaced in Replace", "hello");
+                                              }});
+        info("simple_generic{EmbeddedReplace}", EmbeddedReplace.toString());
+        EmbeddedReplace();
+    }
+};
+</script>
+        <div id="unittestoutput"></div>
+        <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+    </body>
+</html>
+
+

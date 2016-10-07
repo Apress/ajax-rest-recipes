@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>Implementing an Error Handling Strategy</title>
+        <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+        <script language="JavaScript" src="/scripts/jaxson/commontest.js"></script>
+        <script language="javascript" src="/scripts/jaxson/jsUnitCore.js"></script>
+    </head>
+<script language="javascript">
+function init() {
+    info( "init", "hello world");
+}
+
+if (document.addEventListener) {
+    document.addEventListener("DOMContentLoaded", init, false);
+}
+
+window.onload = function() {
+    window.onerror = function(msg, file, location) {
+        info("window.onerror1", "Msg (" + msg + ") file (" + file + ") location (" + location + ")");
+    }
+}
+OpsValue.delegate(window, "onload", function() {
+                 window.onerror = function(msg, file, location) {
+                     info("window.onerror2", "Msg (" + msg + ") file (" + file + ") location (" + location + ")");
+                 }});
+</script>
+    <body>
+<script language="javascript">
+// *******************************************************
+
+function DefinedClass() {
+}
+// *******************************************************
+
+var testsToRun = {
+    throw_exception : function() {
+        throw new Error("this is an error");
+    }
+};
+</script>
+        <div id="unittestoutput"></div>
+        <script language="JavaScript" src="/scripts/jaxson/conventiontest.js"></script>
+        <div id="generate"></div>
+    </body>
+</html>
+<script language="javascript">
+el("generate").innerHTML = window.onload.toString();
+</script>
+

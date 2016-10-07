@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Dynamic Layout</title>
+    <script language="JavaScript" src="/scripts/jaxson/common.js"></script>
+    <script language="JavaScript" src="/scripts/jaxson/commonmorphing.js"></script>
+  </head>
+<script language="JavaScript" type="text/javascript">
+var flexbox;
+
+function updateClientArea() {
+    flexbox.update();
+}
+
+function InitializePage() {
+    flexbox = new FlexBox("content");
+    flexbox.setCharacteristics({ col1 : { width : 200, maxCols : 1},
+                                   col2 : {width : 100, maxCols : 4},
+                                   col3 : { width :200}});
+    flexbox.setContentCallback( { updateContent : function( cell, childElement, colCount, characteristic) {
+                                       childElement.innerHTML = "Boxes (" + colCount + ") id(" + cell.id + ")"}});
+    flexbox.update();
+    window.onresize = updateClientArea;
+}
+</script>
+  <body onload="InitializePage()">
+    <div id="content">
+      <div id="col1"><span style="background: yellow" id="prototype">no content </span></div>
+      <div id="col2">other content</div>
+      <div id="col3">other content</div>
+    </div>
+  </body>
+</html>
+
